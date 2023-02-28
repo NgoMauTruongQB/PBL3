@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="myWeb_trai_tre_mo_coi">
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <property name="context-root" value="myWeb_trai_tre_mo_coi"/>
+        <property name="java-output-path" value="/myWeb_trai_tre_mo_coi/build/classes"/>
+    </wb-module>
+</project-modules>

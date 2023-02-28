@@ -1,14 +1,14 @@
 @font-face {
     font-family: Poppins;
-    src: url(/View/assets/fonts/Poppins-ExtraLight.ttf);
+    src: url(/assets/fonts/Poppins-ExtraLight.ttf);
 }
 @font-face {
     font-family: Roboto;
-    src: url(/View/assets/fonts/Roboto-Light.ttf);
+    src: url(/assets/fonts/Roboto-Light.ttf);
 }
 @font-face {
     font-family: Rubik;
-    src: url(/View/assets/fonts/Rubik-Regular.ttf);
+    src: url(/assets/fonts/Rubik-Regular.ttf);
 }
 
 :root{
