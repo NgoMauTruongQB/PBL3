@@ -242,8 +242,8 @@ public class DonationDAO implements DAOInterface<Donation> {
 //		for (Donation donation : list) {
 //			System.out.println(donation.toString());
 //		}
-		Donation dns = new Donation("DN003", 30000, "Hoàn tất", "0398683741", new Date(2023-1900,02,22), c, u);
-		dnd.update(dns);
+//		Donation dns = new Donation("DN003", 30000, "Hoàn tất", "0398683741", new Date(2023-1900,02,22), c, u);
+//		dnd.update(dns);
 //		dnd.selectById(dns);
 //		System.out.println(dnd.selectById(dns).toString());
 	}
