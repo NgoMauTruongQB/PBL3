@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Admin page</title>
+<title>Đăng kí thành công</title>
 </head>
 <body>
- Xin chào tất cả mọi người
+	<h1> Chúc mừng bạn đã đăng kí tài khoản thành công!</h1>
 </body>
 </html>

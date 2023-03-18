@@ -210,13 +210,13 @@ public class AdopterDAO implements DAOInterface<Adopter> {
 		
 		return result;
 	}
-	public static void main(String[] args) {
-		AdopterDAO add = new AdopterDAO();
-		
-		ArrayList<Adopter> l = add.selectAll();
-		for (Adopter adopter : l) {
-			System.out.println(adopter.toString());
-		}
+//	public static void main(String[] args) {
+//		AdopterDAO add = new AdopterDAO();
+//		
+//		ArrayList<Adopter> l = add.selectAll();
+//		for (Adopter adopter : l) {
+//			System.out.println(adopter.toString());
+//		}
 		
 //		Adopter ad = new Adopter();
 //		ad.setAdopterID("NN1231");
@@ -241,5 +241,5 @@ public class AdopterDAO implements DAOInterface<Adopter> {
 //		Adopter ad = new Adopter("NN1238","Nguyễn Thu Hà", "012122165", "Đồng Hới, Quảng Bình", "044199001121", null);
 //		add.update(ad);
 		
-	}
+//	}
 }

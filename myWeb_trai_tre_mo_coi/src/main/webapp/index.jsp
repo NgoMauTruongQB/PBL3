@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="model.User"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,6 +11,7 @@
 <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.3.0-web/css/all.min.css">
 <script src="./js/scroll.js"></script>
 <title>Happy House</title>
+
 </head>
 <body>
 	<div id="main">
@@ -27,12 +30,27 @@
                     <i class="fa-solid fa-location-dot"></i>
                     <h6>54 Nguyễn Lương Bằng <br> Liên Chiểu - Đà Nẵng</h6>
                 </div>
-                <div class="login">
-                    <a href="./login.jsp">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        Đăng nhập
-                    </a>
-                </div>
+                <%
+                	Object obj = session.getAttribute("user");
+                	User user = null;
+                	if(obj != null)
+                		user = (User)obj;
+                	if(user == null) {
+                %>
+	                <div class="login">
+	                    <a href="./login.jsp">
+	                        <i class="fa-solid fa-right-to-bracket"></i>
+	                        Đăng nhập
+	                    </a>
+	                </div>
+                <% } 
+                else { %>
+	                <div class="login" style="padding: 10px 5px 10px 5px">
+	                    <a href="logout">
+	                        Xin chào  <%= user.getUsername() %>
+	                    </a>
+	                </div>
+                <% } %>
             </div>
         </section>
         <!-- end top bar -->
@@ -220,5 +238,4 @@
 
     </div>
 </body>
-
 </html>
