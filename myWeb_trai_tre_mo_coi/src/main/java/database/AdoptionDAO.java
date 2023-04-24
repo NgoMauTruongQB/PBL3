@@ -232,11 +232,11 @@ public class AdoptionDAO implements DAOInterface<Adoption> {
 	
 	public static void main(String[] args) {
 		AdoptionDAO add = new AdoptionDAO();
-//		ArrayList< Adoption> list = add.selectAll();
-//		
-//		for (Adoption adoption : list) {
-//			System.out.println(adoption.toString());
-//		}
+		ArrayList< Adoption> list = add.selectAll();
+		
+		for (Adoption adoption : list) {
+			System.out.println(adoption.toString());
+		}
 		
 //		Adoption a = new Adoption();
 //		a.setAdoptionID("A001");
@@ -254,13 +254,13 @@ public class AdoptionDAO implements DAOInterface<Adoption> {
 //		a.setAdoptionID("A001");
 //		add.delete(a);
 		
-		Adopter ad = new Adopter();
-		ad.setAdopterID("NN1238");
-		Children c = new Children();
-		c.setOrphanID("C11221");
-		
-		Adoption a = new Adoption("A004", ad, c, "Đang hoàn thiện hồ sơ", new Date(2021-1900,02,11), "Không");
-		add.update(a);
+//		Adopter ad = new Adopter();
+//		ad.setAdopterID("NN1238");
+//		Children c = new Children();
+//		c.setOrphanID("C11221");
+//		
+//		Adoption a = new Adoption("A004", ad, c, "Đang hoàn thiện hồ sơ", new Date(2021-1900,02,11), "Không");
+//		add.update(a);
 		
 	}
 

@@ -1,0 +1,264 @@
+@font-face {
+    font-family: Poppins;
+    src: url(/View/assets/fonts/Poppins-ExtraLight.ttf);
+}
+@font-face {
+    font-family: Roboto;
+    src: url(/View/assets/fonts/Roboto-Light.ttf);
+}
+@font-face {
+    font-family: Rubik;
+    src: url(/View/assets/fonts/Rubik-Regular.ttf);
+}
+@font-face {
+    font-family: Roboto-Thin;
+    src: url(/View/assets/fonts/Roboto-Thin.ttf);
+}
+
+:root{
+    --my-color-1: #32B6A1;
+    --my-color-2: #8BC43F;
+    --my-color-3: #087866;
+    --my-color-4: #065447;
+    --my-color-5: #F5F5F5;
+    --my-color-6: #0A2722;
+    --green: #78c350;
+    --red: #DC3545;
+    --yellow: #FFC107;
+    --purple: #8892d6;
+    --green: #78c350;
+    --blue: #348cd4;
+}
+* {
+    margin: 0;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: 'Roboto',sans-serif;
+    background-color: white;
+}
+
+button {
+    border: 0;
+    padding: 8px 10px ;
+    border-radius: 5px;
+    font-family: 'Roboto',sans-serif;
+    background-color: white;
+    transition: opacity 0.3s ease-in-out;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+input:focus {
+    outline: none;
+    border-color: 2px solid var(--my-color-1);
+}
+
+a {
+    text-decoration: none;
+}
+
+.container{
+    font-size: 14px;
+    min-width: 1024px;
+    /* position: relative; */
+}
+
+.container .header-body{
+    padding: 12px;
+}
+
+.container .header-body h1 {
+    color: var(--my-color-4);
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.operation {
+    position: relative;
+    padding-bottom: 40px;
+}
+
+/* Thêm */
+
+.insert {
+    width: 20%;
+    display: inline-block;
+    margin-left: 24px;
+    position: absolute;
+    right: 20px;
+}
+
+.insert button:hover {
+    background-color: #3e8e41;
+}
+
+.insert button {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 6px;
+    background-color: var(--green);
+    color: var(--my-color-5);
+    width: 60%;
+    position: absolute;
+    right: 2px;
+}
+
+/* Tìm kiếm */
+.search-form button:hover,
+button[onclick="showHideSearch()"]:hover {
+    background-color: #096b5b;
+}
+
+
+button[onclick="showHideSearch()"] {
+    width: 12%;
+    background-color: var(--my-color-1);
+    position: absolute;
+    right: 200px;
+    padding: 10px 6px;
+    color: var(--my-color-5);
+}
+
+#searchDiv {
+    padding: 50px 0;
+    margin: 32px 8px;
+    text-align: center;
+    background-color: #F5F5F5;
+    border-radius: 5px;
+    border-left: var(--my-color-1) 6px solid;
+    margin-top: 10px;
+    display: none;
+}
+
+.search-form {
+    width: 100%;
+    display: inline-block;
+}
+
+.search-form input{
+    padding: 10px;
+    width: 12%;
+    border-radius: 4px;
+    border: solid 1px var(--my-color-1);
+
+}
+
+.search-form input[type="date"],
+.search-form input[type="tel"] {
+    padding: 10px;
+    width: 12%;
+    border-radius: 4px;
+    border: solid 1px var(--my-color-1);
+}
+
+.search-form select {
+    padding: 10px;
+    width: 12%;
+    border-radius: 4px;
+    border: solid 1px var(--my-color-1);
+}
+
+.search-form button {
+    width: 10%;
+    padding: 10px 2px;
+    margin-left: 8px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--my-color-1);
+    color: var(--my-color-5);
+}
+
+/* Bảng */
+
+.table {
+    margin: 32px 8px;
+}
+
+table {
+    border: 1px solid var(--my-color-1);
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    font-size: 14px;
+    
+}
+
+th, td {
+    text-align: center;
+    padding: 10px;
+}
+
+table td {
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+th {
+    padding: 18px;
+    background-color: white;
+    color: var(--my-color-6);
+    font-weight: 600;
+}
+
+table td img {
+    width: 46px;
+    height: 46px;
+    margin-left: 20px;
+    object-fit: cover; 
+    border-radius: 50px; 
+}
+
+tr:nth-child(odd) {
+    background-color: var(--my-color-5);
+}
+
+.table .edit {
+    background-color: var(--yellow);
+}
+
+table .edit:hover { 
+    background-color: #e4ac04; 
+}
+
+table .delete {
+    background-color: var(--red);
+    color: var(--my-color-5);
+}
+
+table .delete:hover {
+    background-color: #c22d3c;
+}
+
+#pagination {
+    margin-top: 10px;
+    right: 10px;
+    display: block;
+    text-align: center;
+}
+
+#pagination button {
+    background-color: var(--my-color-2);
+    color: var(--my-color-5);
+    font-weight: 500;  
+    margin-bottom: 20px;
+}
+
+#pagination button:hover {
+    background-color: #3e8e41;
+}
+
+button.view {
+    padding: 0;
+    background-color: rgba(0,0,0,0);
+}
+

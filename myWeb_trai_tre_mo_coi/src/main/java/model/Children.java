@@ -12,13 +12,14 @@ public class Children {
 	private String health_status;
 	private String education;
 	private int state;
+	private String photo;
 	
 	public Children() {
 		super();
 	}
 
 	public Children(String orphanID, String name, Date date_of_birth, String gender, String reason,
-			String health_status, String education, int state) {
+			String health_status, String education, int state, String photo) {
 		super();
 		this.orphanID = orphanID;
 		this.name = name;
@@ -28,6 +29,7 @@ public class Children {
 		this.health_status = health_status;
 		this.education = education;
 		this.state = state;
+		this.photo = photo;
 	}
 
 	public String getOrphanID() {
@@ -94,27 +96,12 @@ public class Children {
 		this.state = state;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(date_of_birth, education, gender, health_status, name, orphanID, reason, state);
+	public String getPhoto() {
+		return photo;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Children other = (Children) obj;
-		return Objects.equals(orphanID, other.orphanID);
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
-	@Override
-	public String toString() {
-		return "Children [orphanID=" + orphanID + ", name=" + name + ", date_of_birth=" + date_of_birth + ", gender="
-				+ gender + ", reason=" + reason + ", health_status=" + health_status + ", education=" + education
-				+ ", state=" + state + "]";
-	}
 }

@@ -21,17 +21,16 @@ public class DonationDAO implements DAOInterface<Donation> {
 		try {
 			Connection con = JDBCUtil.getConnection();
 			
-			String sql = "SELECT * FROM donation";
+			String sql = "SELECT * FROM donation ORDER BY state ASC";
 			PreparedStatement st = con.prepareStatement(sql);
 			
 			System.out.println(sql);
 			ResultSet rs = st.executeQuery();
 			
-			//bước 4 
 			while(rs.next()) {
 				String donationID = rs.getString("donationID");
 				Double amount_of_money = rs.getDouble("amount_of_money");
-				String state = rs.getString("state");
+				int state = rs.getInt("state");
 				String phoneNumber = rs.getString("phoneNumber");
 				Date date_of_donation = rs.getDate("date_of_donation");
 				String activityID = rs.getString("activityID");
@@ -74,7 +73,7 @@ public class DonationDAO implements DAOInterface<Donation> {
 			while(rs.next()) {
 				String donationID = rs.getString("donationID");
 				Double amount_of_money = rs.getDouble("amount_of_money");
-				String state = rs.getString("state");
+				int state = rs.getInt("state");
 				String phoneNumber = rs.getString("phoneNumber");
 				Date date_of_donation = rs.getDate("date_of_donation");
 				String activityID = rs.getString("activityID");
@@ -111,7 +110,7 @@ public class DonationDAO implements DAOInterface<Donation> {
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, t.getDonationID());
 			st.setDouble(2, t.getAmount_of_money());
-			st.setString(3, t.getState());
+			st.setInt(3, t.getState());
 			st.setString(4, t.getPhoneNumber());
 			st.setDate(5, t.getDate_of_donation());
 			st.setString(6, t.getActivity().getActivityID());
@@ -195,7 +194,7 @@ public class DonationDAO implements DAOInterface<Donation> {
 			
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setDouble(1, t.getAmount_of_money());
-			st.setString(2, t.getState());
+			st.setInt(2, t.getState());
 			st.setString(3, t.getPhoneNumber());
 			st.setDate(4, t.getDate_of_donation());
 			st.setString(5, t.getActivity().getActivityID());
@@ -210,7 +209,6 @@ public class DonationDAO implements DAOInterface<Donation> {
 			u.setId(t.getUser().getId());
 			User user = (new UserDAO().selectById(u));
 			
-			// Bước 3: thực thi câu lệnh SQL
 			System.out.println(sql);
 			result = st.executeUpdate();
 			
@@ -219,32 +217,10 @@ public class DonationDAO implements DAOInterface<Donation> {
 			
 			JDBCUtil.closeConnection(con);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return result;
 	}
 	
-	public static void main(String[] args) {
-		DonationDAO dnd = new DonationDAO();
-		
-		Charity_activities c = new Charity_activities();
-		c.setActivityID("HD1221"); // HD1202 HD1221
-		
-		User u = new User();
-		u.setId("U002"); // U003
-		
-//		Donation dns = new Donation("DN001", 200000, "Đang xác thực", "0921233432", new Date(2023-1900,02,22), c, u);
-//		dnd.insert(dns);
-		
-//		ArrayList<Donation> list = dnd.selectAll();
-//		for (Donation donation : list) {
-//			System.out.println(donation.toString());
-//		}
-//		Donation dns = new Donation("DN003", 30000, "Hoàn tất", "0398683741", new Date(2023-1900,02,22), c, u);
-//		dnd.update(dns);
-//		dnd.selectById(dns);
-//		System.out.println(dnd.selectById(dns).toString());
-	}
 }

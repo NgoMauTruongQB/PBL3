@@ -11,13 +11,14 @@ public class Charity_activities {
 	private double money_collected;
 	private String purpose_of_activity;
 	private Staff staff;
+	private String photo;
 	
 	public Charity_activities() {
 		super();
 	}
 
 	public Charity_activities(String activityID, String name_of_activity, Date date_begin, Date date_end,
-			double money_collected, String purpose_of_activity, Staff staff) {
+			double money_collected, String purpose_of_activity, Staff staff, String photo) {
 		super();
 		this.activityID = activityID;
 		this.name_of_activity = name_of_activity;
@@ -26,6 +27,7 @@ public class Charity_activities {
 		this.money_collected = money_collected;
 		this.purpose_of_activity = purpose_of_activity;
 		this.staff = staff;
+		this.photo = photo;
 	}
 
 	public String getActivityID() {
@@ -84,29 +86,13 @@ public class Charity_activities {
 		this.staff = staff;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(activityID, date_begin, date_end, money_collected, name_of_activity, purpose_of_activity,
-				staff);
+	public String getPhoto() {
+		return photo;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Charity_activities other = (Charity_activities) obj;
-		return Objects.equals(activityID, other.activityID);
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
-	@Override
-	public String toString() {
-		return "Charity_activities [activityID=" + activityID + ", name_of_activity=" + name_of_activity
-				+ ", date_begin=" + date_begin + ", date_end=" + date_end + ", money_collected=" + money_collected
-				+ ", purpose_of_activity=" + purpose_of_activity + ", staff=" + staff + "]";
-	}
 	
 }

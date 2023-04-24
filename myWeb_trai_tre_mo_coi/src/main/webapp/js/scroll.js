@@ -1,4 +1,3 @@
-
 window.addEventListener('scroll', function() {
     var menu = document.getElementById('header');
     if (window.pageYOffset > 50) {
@@ -7,4 +6,3 @@ window.addEventListener('scroll', function() {
         menu.classList.remove('fixed-menu');
     }
 });
-

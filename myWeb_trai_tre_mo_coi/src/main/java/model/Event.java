@@ -12,13 +12,14 @@ public class Event {
 	private int number_of_children;
 	private int state;
 	private Staff staff;
+	private String content;
 	
 	public Event() {
 		super();
 	}
 
 	public Event(String eventID, Date date_begin, Date date_end, String location, String event_of_name,
-			int number_of_children, int state, Staff staff) {
+			int number_of_children, int state, Staff staff, String content) {
 		super();
 		this.eventID = eventID;
 		this.date_begin = date_begin;
@@ -28,6 +29,7 @@ public class Event {
 		this.number_of_children = number_of_children;
 		this.state = state;
 		this.staff = staff;
+		this.content = content;
 	}
 
 	public String getEventID() {
@@ -94,27 +96,12 @@ public class Event {
 		this.staff = staff;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(date_begin, date_end, eventID, event_of_name, location, number_of_children, staff, state);
+	public String getContent() {
+		return content;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Event other = (Event) obj;
-		return Objects.equals(eventID, other.eventID);
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	@Override
-	public String toString() {
-		return "Event [eventID=" + eventID + ", date_begin=" + date_begin + ", date_end=" + date_end + ", location="
-				+ location + ", event_of_name=" + event_of_name + ", number_of_children=" + number_of_children
-				+ ", state=" + state + ", staff=" + staff + "]";
-	}
 }

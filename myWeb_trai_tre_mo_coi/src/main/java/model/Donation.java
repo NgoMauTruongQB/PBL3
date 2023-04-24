@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Donation {
 	private String donationID;
 	private double amount_of_money;
-	private String state;
+	private int state;
 	private String phoneNumber;
 	private Date date_of_donation;
 	private Charity_activities activity;
@@ -16,7 +16,7 @@ public class Donation {
 		super();
 	}
 
-	public Donation(String donationID, double amount_of_money, String state, String phoneNumber,
+	public Donation(String donationID, double amount_of_money, int state, String phoneNumber,
 			Date date_of_donation, Charity_activities activity, User user) {
 		super();
 		this.donationID = donationID;
@@ -44,11 +44,11 @@ public class Donation {
 		this.amount_of_money = amount_of_money;
 	}
 
-	public String getState() {
+	public int getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 

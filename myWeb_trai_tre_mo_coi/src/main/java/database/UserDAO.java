@@ -50,16 +50,13 @@ public class UserDAO implements DAOInterface<User> {
 		try {
 			Connection con = JDBCUtil.getConnection();
 			
-			//Tạo ra đối tượng Statement 
 			String sql = "SELECT * FROM user WHERE id=?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, t.getId());
 			
-			//Thực thi câu lệnh SQL 
 			System.out.println(sql);
 			ResultSet rs = st.executeQuery();
 			
-			//Lấy thông tin 
 			while(rs.next()) {
 				String id = rs.getString("id");
 				String username = rs.getString("username");
@@ -211,11 +208,9 @@ public class UserDAO implements DAOInterface<User> {
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, username);
 			
-			//Thực thi câu lệnh SQL 
 			System.out.println(sql);
 			ResultSet rs = st.executeQuery();
 			
-			//Lấy thông tin 
 			while(rs.next()) {
 				return true;
 			}
@@ -227,39 +222,30 @@ public class UserDAO implements DAOInterface<User> {
 		return result;
 	}
 	
-	//login 
-//	public User selectByUsernameAndPassword(User t) {
-//		User result = null;
-//		try {
-//			Connection con = JDBCUtil.getConnection();
-//			
-//			String sql = "SELECT * FROM user WHERE username=? AND password=?";
-//			PreparedStatement st = con.prepareStatement(sql);
-//			st.setString(1, t.getUsername());
-//			st.setString(2, t.getPassword());
-//			 
-//			ResultSet rs = st.executeQuery();
-//			
-//			//Lấy thông tin 
-//			while(rs.next()) {
-//				String id = rs.getString("id");
-//				String username = rs.getString("username");
-//				String email = rs.getString("email");
-//				String password = rs.getString("password");
-//				String fullname = rs.getString("fullname");
-//				String role = rs.getString("role");
-//				int state = rs.getInt("state");
-//				
-//				result = new User(id, username, email, password, fullname, role, state);
-//				break;
-//			}
-//			
-//			JDBCUtil.closeConnection(con);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return result;
-//	}
+	public boolean checkUsernameDiferentId(String username, String id) {
+		boolean result = false;
+		try {
+			Connection con = JDBCUtil.getConnection();
+
+			String sql = "SELECT * FROM user WHERE username=? AND id <> ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, username);
+			st.setString(2, id);
+			
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+			
+			while(rs.next()) {
+				return true;
+			}
+			
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	
 	public User selectByUsernameAndPassword(User t) {
 		User result = null;
@@ -293,17 +279,5 @@ public class UserDAO implements DAOInterface<User> {
 		}
 		return result;
 	}
-//	
-//	public static void main(String[] args) {
-//		UserDAO userDao = new UserDAO();
-//		User u = new User();
-//		u.setUsername("admin01");
-//		u.setPassword("ad1234");
-//		
-//		User t = userDao.selectByUsernameAndPassword(u);
-//		String quyen = t.getRole();
-//		
-//		System.out.println(quyen.equals("admin"));
-//	}
 	
 }
