@@ -1,0 +1,137 @@
+
+@font-face {
+    font-family: Poppins;
+    src: url(/View/assets/fonts/Poppins-ExtraLight.ttf);
+}
+@font-face {
+    font-family: Roboto;
+    src: url(/View/assets/fonts/Roboto-Light.ttf);
+}
+@font-face {
+    font-family: Rubik;
+    src: url(/View/assets/fonts/Rubik-Regular.ttf);
+}
+@font-face {
+    font-family: Roboto-Thin;
+    src: url(/View/assets/fonts/Roboto-Thin.ttf);
+}
+
+:root{
+    --my-color-1: #32B6A1;
+    --my-color-2: #8BC43F;
+    --my-color-3: #087866;
+    --my-color-4: #065447;
+    --my-color-5: #F5F5F5;
+    --my-color-6: #0A2722;
+    --green: #78c350;
+    --red: #DC3545;
+    --yellow: #FFC107;
+    --purple: #8892d6;
+    --blue: #348cd4;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+  
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: 'Roboto',sans-serif;
+    background-color: white;
+}
+
+.container {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.column {
+    float: left;
+    width: 25%;
+    padding: 0 5px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.card {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    text-align: center;
+    color: white;
+    border-radius: 8px;
+}
+
+.card p:first-child {
+    background-color: rgba(247,247,247,.25);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.card p:last-child {
+	margin-top: 10px;
+}
+
+.card h3 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.card p:last-child {
+    font-size: 18x;
+}
+
+
+.card i {
+    line-height: 80px;
+    font-size: 24px;
+}
+
+.card1 {
+    background-image: linear-gradient(to right, #8a97e5, #8892d6); 
+}
+
+.card2 {
+    background-image: linear-gradient(to right, #29b3dd, #45bbe9); 
+}
+
+.card3 {
+    background-image: linear-gradient(to right, #77c754, #78c359);
+}
+
+.card4 {
+    background-image: linear-gradient(to right, #F06290, #F06299);
+}
+
+.fa {font-size:50px;}
+
+#donaton_chart {
+	box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    width: 100%;
+    height: 400px;
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    #chart_div {
+        width: 100%;
+    }
+    #myChart {
+        width: 100%;
+    }
+}

@@ -1,4 +1,5 @@
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.Feedback"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="database.FeedbackDAO"%>
@@ -51,12 +52,16 @@
 	            <% 	FeedbackDAO fbDao = new FeedbackDAO();
 	            	ArrayList<Feedback> list = fbDao.selectAll();
 	            %>
-	            <% for (Feedback fb : list) {%>
+	            <% for (Feedback fb : list) {
+	            	java.sql.Date date = fb.getDate_of_feedback();
+                   	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                   	String formattedDate= dateFormat.format(date);
+                %>
                     <tr>
 	                    <td><%= fb.getFeedbackID() %></td>
                         <td class="editable"> <button class="view" onclick="view('<%= fb.getStaff().getStaffID() %>')"><%= fb.getStaff().getFullname() %></button></td>
                         <td class="editable"><%= fb.getRating() %></td>
-	                    <td class="editable"><%= fb.getDate_of_feedback() %></td>
+	                    <td class="editable"><%= formattedDate %></td>
 	                    <td class="editable"><%= fb.getContent_of_feedback() %></td>
 	                </tr>
  				<% } %>

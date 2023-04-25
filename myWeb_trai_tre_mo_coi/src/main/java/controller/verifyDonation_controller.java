@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.Charity_activitiesDAO;
 import database.DonationDAO;
 import model.Donation;
 
@@ -28,6 +29,9 @@ public class verifyDonation_controller extends HttpServlet {
 		}
 		if (mod.equals("delete")) {
 			delete(request, response);
+		}
+		if (mod.equals("insert")) {
+			insert(request, response);
 		}
 	}
 
@@ -59,5 +63,4 @@ public class verifyDonation_controller extends HttpServlet {
 		donationDAO.delete(donation);
 		response.sendRedirect("verifyDonations.jsp");
 	}
-
 }
