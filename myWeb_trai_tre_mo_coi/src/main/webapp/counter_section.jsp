@@ -13,7 +13,7 @@
 	<button class="edit" onclick="editUser()">Sửa</button>
 	<script>
 	            function editUser() {
-	            	window.location.href = "create_excel_controller?&mod=getInfo";
+	            	window.location.href = "create_excel_controller?&mod=export";
 				}
 	</script>
 </body>

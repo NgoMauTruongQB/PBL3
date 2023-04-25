@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.AdopterDAO;
-import database.UserDAO;
 import model.Adopter;
-import model.User;
 
 @WebServlet("/adopter_controller")
 public class adopter_controller extends HttpServlet {

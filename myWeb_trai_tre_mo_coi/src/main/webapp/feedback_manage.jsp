@@ -51,17 +51,15 @@
 	            <tbody id="data-table">
 	            <% 	FeedbackDAO fbDao = new FeedbackDAO();
 	            	ArrayList<Feedback> list = fbDao.selectAll();
-	            %>
-	            <% for (Feedback fb : list) {
-	            	java.sql.Date date = fb.getDate_of_feedback();
-                   	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                   	String formattedDate= dateFormat.format(date);
+	            	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	            	for (Feedback fb : list) {
+	            		java.sql.Date date = fb.getDate_of_feedback();
                 %>
                     <tr>
 	                    <td><%= fb.getFeedbackID() %></td>
                         <td class="editable"> <button class="view" onclick="view('<%= fb.getStaff().getStaffID() %>')"><%= fb.getStaff().getFullname() %></button></td>
                         <td class="editable"><%= fb.getRating() %></td>
-	                    <td class="editable"><%= formattedDate %></td>
+	                    <td class="editable"><%= dateFormat.format(date) %></td>
 	                    <td class="editable"><%= fb.getContent_of_feedback() %></td>
 	                </tr>
  				<% } %>

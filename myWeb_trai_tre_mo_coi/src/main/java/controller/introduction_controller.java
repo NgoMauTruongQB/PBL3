@@ -9,25 +9,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.DonationDAO;
-import model.Donation;
+import database.AdoptionDAO;
+import database.IntroductionDAO;
+import model.Adoption;
+import model.Introduction;
 
-@WebServlet("/verifyDonation_controller")
-public class verifyDonation_controller extends HttpServlet {
+@WebServlet("/introduction_controller")
+public class introduction_controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public verifyDonation_controller() {
+    public introduction_controller() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String mod = request.getParameter("mod");
-		if (mod.equals("edit")) {
-			edit(request, response);
-		}
 		if (mod.equals("delete")) {
 			delete(request, response);
+		}
+		if (mod.equals("update")) {
+			update(request, response);
 		}
 	}
 
@@ -36,27 +38,28 @@ public class verifyDonation_controller extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private void edit(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String url = "";
 		
-		DonationDAO donationDAO = new DonationDAO();
-		Donation donation = new Donation();
-		donation.setDonationID(id);
-		donation = donationDAO.selectById(donation);
-		donation.setState(1);
-		donationDAO.update(donation);
-		url = "/verifyDonations.jsp";
+		IntroductionDAO introductionDAO = new IntroductionDAO();
+		Introduction introduction = new Introduction();
+		introduction.setIntroductionID(id);
+		introduction = introductionDAO.selectById(introduction);
+		introduction.setState(1);
+		introductionDAO.update(introduction);
+		url = "/introduction_manage.jsp";
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);
 	}
 	
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String id = request.getParameter("id");		
-		DonationDAO donationDAO = new DonationDAO();
-		Donation donation = new Donation();
-		donation.setDonationID(id);
-		donationDAO.delete(donation);
-		response.sendRedirect("verifyDonations.jsp");
+		IntroductionDAO introductionDAO = new IntroductionDAO();
+		Introduction introduction = new Introduction();
+		introduction.setIntroductionID(id);
+		introductionDAO.delete(introduction);
+		response.sendRedirect("introduction_manage.jsp");
 	}
+
 }

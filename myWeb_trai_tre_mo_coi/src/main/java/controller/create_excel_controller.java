@@ -14,10 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import database.DonationDAO;
-import model.Donation;
-
-import java.io.IOException;
+import database.StaffDAO;
+import model.Staff;
 
 
 @WebServlet("/create_excel_controller")
@@ -30,42 +28,69 @@ public class create_excel_controller extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String mod = request.getParameter("mod");
+		if (mod.equals("export")) {
+			export_children(request, response);
+		}
+	}
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		doGet(request, response);
+	}
+	
+	private void export_children(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		// tạo workbook mới
         Workbook workbook = new XSSFWorkbook();
         
         // tạo sheet mới
-        Sheet sheet = workbook.createSheet("Danh sách ủng hộ");
+        Sheet sheet = workbook.createSheet("Danh sách nhận viên");
         
         // thêm các tiêu đề cho sheet
         Row headerRow = sheet.createRow(0);
         Cell headerCell1 = headerRow.createCell(0);
         headerCell1.setCellValue("ID");
         Cell headerCell2 = headerRow.createCell(1);
-        headerCell2.setCellValue("Họ tên");
+        headerCell2.setCellValue("Họ và tên");
         Cell headerCell3 = headerRow.createCell(2);
-        headerCell3.setCellValue("Email");
+        headerCell3.setCellValue("Ngày sinh");
+        Cell headerCell4 = headerRow.createCell(3);
+        headerCell4.setCellValue("Giới tính");
+        Cell headerCell5 = headerRow.createCell(4);
+        headerCell5.setCellValue("Vị trí");
+        Cell headerCell6 = headerRow.createCell(5);
+        headerCell6.setCellValue("Trạng thái");
+        Cell headerCell7 = headerRow.createCell(6);
+        headerCell7.setCellValue("Số điện thoại");
+        Cell headerCell8 = headerRow.createCell(7);
+        headerCell8.setCellValue("Email");
         
-        // TODO: ghi dữ liệu vào sheet
-        // lấy danh sách sinh viên
-        DonationDAO donationDAO = new DonationDAO();
-        ArrayList<Donation> donations = donationDAO.selectAll();
+        // lấy danh sách nhân viên
+        StaffDAO staffDAO = new StaffDAO();
+        ArrayList<Staff> staff = staffDAO.selectAll();
 
         // ghi dữ liệu vào sheet
         int rowNum = 1;
-        for (Donation donation : donations) {
+        for (Staff st : staff) {
             Row row = sheet.createRow(rowNum++);
-            row.createCell(0).setCellValue(donation.getDonationID());
-            row.createCell(1).setCellValue(donation.getAmount_of_money());
-            row.createCell(2).setCellValue(donation.getPhoneNumber());
+            row.createCell(0).setCellValue(st.getStaffID());
+            row.createCell(1).setCellValue(st.getFullname());
+            row.createCell(2).setCellValue(st.getDate_of_birth());
+            row.createCell(3).setCellValue(st.getState());
+            row.createCell(4).setCellValue(st.getPosition());
+            row.createCell(5).setCellValue(st.getState());
+            row.createCell(6).setCellValue(st.getPhone());
+            row.createCell(7).setCellValue(st.getEmail());
         }
         
         // xuất file Excel
         response.setContentType("application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment; filename=\"danh_sach_sinh_vien.xlsx\"");
+        response.setHeader("Content-Disposition", "attachment; filename=\"danh_sach_nhan_vien.xlsx\"");
         workbook.write(response.getOutputStream());
         
-        String absoluteFilePath = getServletContext().getRealPath("/uploads/danh_sach_sinh_vien.xlsx");
+        String absoluteFilePath = getServletContext().getRealPath("/uploads/danh_sach_nhan_vien.xlsx");
         File outputFile = new File(absoluteFilePath);
 
         FileOutputStream outputStream = new FileOutputStream(outputFile);
@@ -75,12 +100,6 @@ public class create_excel_controller extends HttpServlet {
 
         // đóng outputStream
         outputStream.close();
-	}
-
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		doGet(request, response);
 	}
 
 }
