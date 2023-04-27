@@ -22,8 +22,9 @@
         <div class="header-body"><h1>Thống kê ủng hộ hàng tháng</h1></div>
         <div class="search">
             <input type="text" name="sDate" id="sDate" placeholder="Tháng" onkeyup="searchDate()">
+            <button class="excel" onclick="edit()">Xuất file excel </button>
         </div>
-
+		
         <!-- Bảng -->
         <div class="table" >
         	<table style="width: 100%; overflow-x: auto;">
@@ -55,7 +56,14 @@
                 <button id="next-page">Next</button>
             </div>
         </div>
-    <script src="./js/table.js"></script>
-    <script src="./js/monthlyStatistics.js"></script>
+	    <script>
+		    function edit() {
+		    	window.location.href = "create_excel_controller?&mod=export_monthly_statistics";
+		    }
+	    </script>
+	    <script src="./js/table.js"></script>
+	    <script src="./js/monthlyStatistics.js"></script>
+	</div>
+		
 </body>
 </html>

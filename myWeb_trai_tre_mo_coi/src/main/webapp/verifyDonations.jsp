@@ -25,7 +25,7 @@
         <div class="operation">           
             <!-- Tìm kiếm -->
             <button onclick="showHideSearch()" style="right: 10px" > <i class="fa-solid fa-filter"></i> &nbsp; Tìm kiếm </button>
-
+			<button class="excel" onclick="edit()"> Xuất file excel </button>
         </div>
 
         <div id="searchDiv">
@@ -93,7 +93,10 @@
 	                if (confirm("Bạn có chắc chắn muốn xoá?")) {
 	                    window.location.href = "verifyDonation_controller?id=" + id + "&mod=delete";
 	                }
-	            }				
+	            }
+	    	    function edit() {
+	    	    	window.location.href = "create_excel_controller?&mod=export_donation";
+	    	    }				
 	            </script>
 	        </table>
             <div id="pagination">

@@ -212,5 +212,33 @@ public class AdoptionDAO implements DAOInterface<Adoption> {
 		
 		return result;
 	}
+	
+	public String selectEmail(String adopterID) {
+		String result = null;
+		try {
+			Connection con = JDBCUtil.getConnection();
+			
+			String sql = "SELECT user.email "
+					+ "FROM user "
+					+ "JOIN adopter_user ON user.id = adopter_user.userID "
+					+ "JOIN adopter ON adopter.apdoterID = adopter_user.adopterID "
+					+ "WHERE adopter.apdoterID = ?; ";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, adopterID);
+			
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+			
+			while(rs.next()) {
+			    String mail = rs.getString("email");
+			    return mail;
+			}
+			
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 }

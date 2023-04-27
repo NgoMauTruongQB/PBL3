@@ -170,6 +170,21 @@ button[onclick="showHideSearch()"] {
     color: var(--my-color-5);
 }
 
+.excel:hover {
+    background-color: #3e8e41;
+}
+
+.excel {
+	padding: 10px 8px;
+	margin-left: 10px;
+    background-color: var(--my-color-2);
+    color: var(--my-color-5);
+    font-size: 14px;
+    position: absolute;
+    right: 180px;
+} 
+
+
 .table {
     margin: 32px 8px;
 }

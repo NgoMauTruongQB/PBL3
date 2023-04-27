@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.Date;
-import java.util.Objects;
 
 public class Event {
 	private String eventID;

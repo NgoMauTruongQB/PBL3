@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import controller.register;
 import model.Children;
 import model.Feedback;
 import model.Introducter;
@@ -212,5 +213,33 @@ public class IntroductionDAO implements DAOInterface<Introduction> {
 		}
 		
 		return result;
+	}
+	
+	public String selectEmail(String introducterID) {
+			String result = null;
+			try {
+				Connection con = JDBCUtil.getConnection();
+				
+				String sql = "SELECT user.email "
+						+ "FROM user "
+						+ "JOIN introducter_user ON user.id = introducter_user.userID "
+						+ "JOIN introducter ON introducter.introducterID = introducter_user.introducterID "
+						+ "WHERE introducter.introducterID = ?";
+				PreparedStatement st = con.prepareStatement(sql);
+				st.setString(1, introducterID);
+				
+				System.out.println(sql);
+				ResultSet rs = st.executeQuery();
+				
+				while(rs.next()) {
+				    String mail = rs.getString("email");
+				    return mail;
+				}
+				
+				JDBCUtil.closeConnection(con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return result;
 	}
 }

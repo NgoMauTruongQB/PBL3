@@ -22,6 +22,7 @@
         <div class="header-body"><h1>Thống kê gây quỹ</h1></div>
         <div class="search">
             <input type="text" name="sName" id="sName" placeholder="Tên hoạt động" onkeyup="searchName()">
+            <button class="excel" onclick="edit()"> Xuất file excel </button>
         </div>
 
         <!-- Bảng -->
@@ -64,6 +65,11 @@
                 <button id="next-page">Next</button>
             </div>
         </div>
+    <script type="text/javascript">
+	    function edit() {
+	    	window.location.href = "create_excel_controller?&mod=export_donation_statistics";
+	    }
+    </script>
     <script src="./js/table.js"></script>
     <script src="./js/donationAction.js"></script>
 </body>

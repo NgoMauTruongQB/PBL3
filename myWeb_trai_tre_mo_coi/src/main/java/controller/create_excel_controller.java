@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import database.StaffDAO;
-import model.Staff;
+import database.DonationDAO;
+import database.donationStatisticsDAO;
+import model.Donation;
+import model.DonationStatistics;
+import model.Monthly_statistics;
 
 
 @WebServlet("/create_excel_controller")
@@ -29,8 +32,14 @@ public class create_excel_controller extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mod = request.getParameter("mod");
-		if (mod.equals("export")) {
-			export_children(request, response);
+		if (mod.equals("export_monthly_statistics")) {
+			export_monthly_statistics(request, response);
+		}
+		if (mod.equals("export_donation")) {
+			export_donation(request, response);
+		}
+		if (mod.equals("export_donation_statistics")) {
+			export_donation_statistics(request, response);
 		}
 	}
 
@@ -40,65 +49,161 @@ public class create_excel_controller extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private void export_children(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void export_monthly_statistics(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
-		// tạo workbook mới
-        Workbook workbook = new XSSFWorkbook();
-        
-        // tạo sheet mới
-        Sheet sheet = workbook.createSheet("Danh sách nhận viên");
-        
-        // thêm các tiêu đề cho sheet
-        Row headerRow = sheet.createRow(0);
-        Cell headerCell1 = headerRow.createCell(0);
-        headerCell1.setCellValue("ID");
-        Cell headerCell2 = headerRow.createCell(1);
-        headerCell2.setCellValue("Họ và tên");
-        Cell headerCell3 = headerRow.createCell(2);
-        headerCell3.setCellValue("Ngày sinh");
-        Cell headerCell4 = headerRow.createCell(3);
-        headerCell4.setCellValue("Giới tính");
-        Cell headerCell5 = headerRow.createCell(4);
-        headerCell5.setCellValue("Vị trí");
-        Cell headerCell6 = headerRow.createCell(5);
-        headerCell6.setCellValue("Trạng thái");
-        Cell headerCell7 = headerRow.createCell(6);
-        headerCell7.setCellValue("Số điện thoại");
-        Cell headerCell8 = headerRow.createCell(7);
-        headerCell8.setCellValue("Email");
-        
-        // lấy danh sách nhân viên
-        StaffDAO staffDAO = new StaffDAO();
-        ArrayList<Staff> staff = staffDAO.selectAll();
 
-        // ghi dữ liệu vào sheet
+        Workbook workbook = new XSSFWorkbook();
+
+        Sheet sheet = workbook.createSheet("Thống kê ủng hộ hàng tháng");
+        
+        Row headerRow = sheet.createRow(0);
+        CellStyle style = workbook.createCellStyle();
+        Font font = workbook.createFont();
+        font.setBold(true);
+        style.setFont(font);
+        
+        Cell headerCell1 = headerRow.createCell(0);
+        headerCell1.setCellValue("Tháng");
+        headerCell1.setCellStyle(style);
+        Cell headerCell2 = headerRow.createCell(1);
+        headerCell2.setCellValue("Tổng tiền nhận được");
+        headerCell2.setCellStyle(style);
+        
+        donationStatisticsDAO dnDao = new donationStatisticsDAO();
+    	ArrayList<Monthly_statistics> list = dnDao.selectAllMonth();
+
         int rowNum = 1;
-        for (Staff st : staff) {
+        for (Monthly_statistics ms : list) {
             Row row = sheet.createRow(rowNum++);
-            row.createCell(0).setCellValue(st.getStaffID());
-            row.createCell(1).setCellValue(st.getFullname());
-            row.createCell(2).setCellValue(st.getDate_of_birth());
-            row.createCell(3).setCellValue(st.getState());
-            row.createCell(4).setCellValue(st.getPosition());
-            row.createCell(5).setCellValue(st.getState());
-            row.createCell(6).setCellValue(st.getPhone());
-            row.createCell(7).setCellValue(st.getEmail());
+            row.createCell(0).setCellValue(ms.getMonth() + "/" + ms.getYear());
+            row.createCell(1).setCellValue(ms.getTotal());
         }
         
-        // xuất file Excel
         response.setContentType("application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment; filename=\"danh_sach_nhan_vien.xlsx\"");
+        response.setHeader("Content-Disposition", "attachment; filename=\"thong_ke_ung_ho_hang_thang.xlsx\"");
         workbook.write(response.getOutputStream());
         
-        String absoluteFilePath = getServletContext().getRealPath("/uploads/danh_sach_nhan_vien.xlsx");
+        String absoluteFilePath = getServletContext().getRealPath("/uploads/excel/thong_ke_ung_ho_hang_thang.xlsx");
         File outputFile = new File(absoluteFilePath);
 
         FileOutputStream outputStream = new FileOutputStream(outputFile);
 
-        // ghi nội dung của file Excel vào outputStream
         workbook.write(outputStream);
 
-        // đóng outputStream
+        outputStream.close();
+	}
+	
+	private void export_donation(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+
+        Workbook workbook = new XSSFWorkbook();
+
+        Sheet sheet = workbook.createSheet("Danh sách ủng hộ");
+        
+        Row headerRow = sheet.createRow(0);
+        CellStyle style = workbook.createCellStyle();
+        Font font = workbook.createFont();
+        font.setBold(true);
+        style.setFont(font);
+        
+        Cell headerCell1 = headerRow.createCell(0);
+        headerCell1.setCellValue("Tên Hoạt động");
+        headerCell1.setCellStyle(style);
+        Cell headerCell2 = headerRow.createCell(1);
+        headerCell2.setCellValue("Tên người ủng hộ");
+        headerCell2.setCellStyle(style);
+        Cell headerCell3 = headerRow.createCell(2);
+        headerCell3.setCellValue("Số tiền quyên góp");
+        headerCell3.setCellStyle(style);
+        Cell headerCell4 = headerRow.createCell(3);
+        headerCell4.setCellValue("Số điện thoại");
+        headerCell4.setCellStyle(style);
+        Cell headerCell5 = headerRow.createCell(4);
+        headerCell5.setCellValue("Ngày thực hiện");
+        headerCell5.setCellStyle(style);
+        Cell headerCell6 = headerRow.createCell(5);
+        headerCell6.setCellValue("Trạng thái");
+        headerCell6.setCellStyle(style);
+        
+        DonationDAO dnDao = new DonationDAO();
+   		ArrayList<Donation> list = dnDao.selectAll();
+   		
+        int rowNum = 1;
+        for (Donation dn : list) {
+        	Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(dn.getActivity().getName_of_activity());
+            row.createCell(1).setCellValue(dn.getUser().getFullname());
+            row.createCell(2).setCellValue(dn.getAmount_of_money());
+            row.createCell(3).setCellValue(dn.getPhoneNumber());
+            row.createCell(4).setCellValue(dn.getDate_of_donation());
+            String state = (dn.getState() == 1) ? "Hoàn tất" : "Đang xác thực";
+            row.createCell(5).setCellValue(state);
+        }
+        
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment; filename=\"danh_sach_ung_ho.xlsx\"");
+        workbook.write(response.getOutputStream());
+        
+        String absoluteFilePath = getServletContext().getRealPath("/uploads/excel/danh_sach_ung_ho.xlsx");
+        File outputFile = new File(absoluteFilePath);
+
+        FileOutputStream outputStream = new FileOutputStream(outputFile);
+
+        workbook.write(outputStream);
+
+        outputStream.close();
+	}
+	
+	private void export_donation_statistics(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+
+        Workbook workbook = new XSSFWorkbook();
+
+        Sheet sheet = workbook.createSheet("Tình hình gây quỹ");
+        
+        Row headerRow = sheet.createRow(0);
+        CellStyle style = workbook.createCellStyle();
+        Font font = workbook.createFont();
+        font.setBold(true);
+        style.setFont(font);
+        
+        Cell headerCell1 = headerRow.createCell(0);
+        headerCell1.setCellValue("Tên Hoạt động");
+        headerCell1.setCellStyle(style);
+        Cell headerCell2 = headerRow.createCell(1);
+        headerCell2.setCellValue("Số tiền cần quyên góp");
+        headerCell2.setCellStyle(style);
+        Cell headerCell3 = headerRow.createCell(2);
+        headerCell3.setCellValue("Số tiền đã nhận được");
+        headerCell3.setCellStyle(style);
+        Cell headerCell4 = headerRow.createCell(3);
+        headerCell4.setCellValue("Số tiền còn lại ");
+        headerCell4.setCellStyle(style);
+        
+        donationStatisticsDAO dnDao = new donationStatisticsDAO();
+    	ArrayList<DonationStatistics> list = dnDao.selectAll();
+
+        int rowNum = 1;
+        for (DonationStatistics dn : list) {
+        	Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(dn.getName());
+            row.createCell(1).setCellValue(dn.getMoney_collected());
+            row.createCell(2).setCellValue(dn.getAmount_of_money());
+            double s = dn.getMoney_collected() - dn.getAmount_of_money();
+            row.createCell(3).setCellValue(s);
+        }
+        
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment; filename=\"thong_ke_tinh_hinh_gay_quy.xlsx\"");
+        workbook.write(response.getOutputStream());
+        
+        String absoluteFilePath = getServletContext().getRealPath("/uploads/excel/thong_ke_tinh_hinh_gay_quy.xlsx");
+        File outputFile = new File(absoluteFilePath);
+
+        FileOutputStream outputStream = new FileOutputStream(outputFile);
+
+        workbook.write(outputStream);
+
         outputStream.close();
 	}
 

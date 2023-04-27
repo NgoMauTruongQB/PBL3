@@ -15,9 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import database.ChildrenDAO;
 import database.IntroducterDAO;
-import model.Children;
 import model.Introducter;
 
 @WebServlet("/introducter_controller")
@@ -72,7 +70,6 @@ public class introducter_controller extends HttpServlet {
 		String phone = request.getParameter("iPhone");
 		String add = request.getParameter("iAddress");
 		String note = request.getParameter("iNote");
-		
 		String url = "";
 		
 		IntroducterDAO introducterDAO = new IntroducterDAO();

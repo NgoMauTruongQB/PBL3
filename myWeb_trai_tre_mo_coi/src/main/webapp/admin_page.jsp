@@ -59,8 +59,20 @@
 	                </div>
 	            </div>
 	        </div>
-	    
-	        <div class="row draw">
+	    	
+	        <div class="row ">
+		        <div id="send-email" class="column">
+	                <form action="sendMail_controller" method="post">
+	                	<input name="mod" value="allStaff" type="hidden">
+	                    <h2>Thông báo đến nhân viên</h2>
+	                    <label>Tiêu đề: </label>
+	                    <input name="titleEmail" placeholder="Tên tiều đề">
+	                    <label>Nội dung: </label>
+	                    <textarea name="contentEmail"></textarea>
+	                    <button type="submit">Gửi</button>
+	                </form>
+	            </div>
+	        	<div class="sendEmail">
 	            <div id="donaton_chart" class="column"></div>
 	        </div>
 	    </div>

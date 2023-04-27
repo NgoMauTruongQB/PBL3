@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import database.AdoptionDAO;
 import model.Adoption;
+import util.Email;
 
 @WebServlet("/adoption_controller")
 public class adoption_controller extends HttpServlet {
@@ -45,6 +46,14 @@ public class adoption_controller extends HttpServlet {
 		adoption = adoptionDAO.selectById(adoption);
 		adoption.setState(1);
 		adoptionDAO.update(adoption);
+		
+		String adopterID = adoption.getAdopter().getAdopterID();
+		String email = adoptionDAO.selectEmail(adopterID);
+		String name = adoption.getAdopter().getName();
+		String child = adoption.getChild().getName();
+		System.out.println("Name "+ name + "child " + child + " email " + email);
+		Email.SendEmailAdoption(email, "Xác nhận đơn nhận nuôi được chấp nhận", name, child);
+		
 		url = "/adoption_manage.jsp";
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);

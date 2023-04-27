@@ -97,6 +97,19 @@ input {
     border: solid 1px var(--my-color-1);
 }
 
+.excel:hover {
+    background-color: #3e8e41;
+}
+
+.excel {
+	padding: 10px;
+	margin-left: 10px;
+    background-color: var(--my-color-2);
+    color: var(--my-color-5);
+    font-size: 14px;
+} 
+
+
 /* Bảng */
 
 .table {
