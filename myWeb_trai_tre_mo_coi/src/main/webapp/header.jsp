@@ -1,3 +1,6 @@
+
+ 
+
 <%@page import="model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -82,10 +85,10 @@
                     <li><a href="children_manage.jsp">
                         <i class="fa-solid fa-arrow-right"></i>
                         Danh sách</a></li>
-                    <li><a href="">
+                    <li><a href="adoption_manage.jsp">
                         <i class="fa-solid fa-arrow-right"></i>
                         Hoạt động nhận nuôi</a></li>
-                    <li><a href="">
+                    <li><a href="introduction_manage.jsp">
                         <i class="fa-solid fa-arrow-right"></i>
                         Giới thiệu vào trung tâm</a></li>
                 </ul>
@@ -163,7 +166,6 @@
                 document.getElementById("nav").style.display = 'block';
             }
         }
-
 		function showSubnav() {
             var windowWidth = window.innerWidth;
             if (windowWidth < 1023) {

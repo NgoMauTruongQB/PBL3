@@ -33,7 +33,7 @@ public class AdoptionDAO implements DAOInterface<Adoption> {
 				String adoptionID = rs.getString("adoptionID");
 				String adopterID = rs.getString("adopterID");
 				String orphanID = rs.getString("orphanID");
-				String state = rs.getString("state");
+				int state = rs.getInt("state");
 				Date date_adoption = rs.getDate("date_adoption");
 				String note = rs.getString("note");
 				
@@ -75,7 +75,7 @@ public class AdoptionDAO implements DAOInterface<Adoption> {
 				String adoptionID = rs.getString("adoptionID");
 				String adopterID = rs.getString("adopterID");
 				String orphanID = rs.getString("orphanID");
-				String state = rs.getString("state");
+				int state = rs.getInt("state");
 				Date date_adoption = rs.getDate("date_adoption");
 				String note = rs.getString("note");
 				
@@ -99,6 +99,8 @@ public class AdoptionDAO implements DAOInterface<Adoption> {
 		return result;
 	}
 
+
+
 	@Override
 	public int insert(Adoption t) {
 		int result = 0;
@@ -112,7 +114,7 @@ public class AdoptionDAO implements DAOInterface<Adoption> {
 			st.setString(1, t.getAdoptionID());
 			st.setString(2, t.getAdopter().getAdopterID());
 			st.setString(3, t.getChild().getOrphanID());
-			st.setString(4, t.getState());
+			st.setInt(4, t.getState());
 			st.setDate(5, t.getDate_adoption());
 			st.setString(6, t.getNote());
 			
@@ -198,7 +200,7 @@ public class AdoptionDAO implements DAOInterface<Adoption> {
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, t.getAdopter().getAdopterID());
 			st.setString(2, t.getChild().getOrphanID());
-			st.setString(3, t.getState());
+			st.setInt(3, t.getState());
 			st.setDate(4, t.getDate_adoption());
 			st.setString(5, t.getNote());
 			st.setString(6, t.getAdoptionID());

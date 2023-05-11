@@ -79,6 +79,76 @@ public class StaffDAO implements DAOInterface<Staff> {
 		}
 		return result;
 	}
+	public Staff selectfullname() {
+		Staff result = null;
+		try {
+			Connection con = JDBCUtil.getConnection();
+			
+			String sql = "SELECT fullname FROM staff ";
+			PreparedStatement st = con.prepareStatement(sql);
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				String staffID = rs.getString("staff_id");
+				String fullname = rs.getString("fullname");
+				Date date_of_birth = rs.getDate("date_of_birth");
+				String gender = rs.getString("gender");
+				String position = rs.getString("position");
+				int state = rs.getInt("state");
+				String phone = rs.getString("phone");
+				String email = rs.getString("email");
+				String photo = rs.getString("photo");
+				
+				result = new Staff(staffID, fullname, date_of_birth, gender, position, state, phone, email, photo);
+				break;
+			}
+			
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public Staff selectID(String name) {
+		Staff result = null;
+		
+		try {
+			//Kết nối với CSDL
+			Connection con = JDBCUtil.getConnection();
+			
+			//Tạo ra đối tượng Statement 
+			String sql = "SELECT * FROM staff WHERE fullname = ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, name);
+			
+			//Thực thi câu lệnh SQL 
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+			
+			//Lấy thông tin 
+			while(rs.next()) {
+				String staffID = rs.getString("staff_id");
+				String fullname = rs.getString("fullname");
+				Date date_of_birth = rs.getDate("date_of_birth");
+				String gender = rs.getString("gender");
+				String position = rs.getString("position");
+				int state = rs.getInt("state");
+				String phone = rs.getString("phone");
+				String email = rs.getString("email");
+				String photo = rs.getString("photo");
+				
+				result = new Staff(staffID, fullname, date_of_birth, gender, position, state, phone, email, photo);
+				break;
+			}
+			
+			//Đóng cơ sở dữ liệu
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 
 	@Override
 	public int insert(Staff t) {

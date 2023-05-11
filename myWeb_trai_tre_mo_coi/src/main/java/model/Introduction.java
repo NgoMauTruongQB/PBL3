@@ -7,7 +7,7 @@ public class Introduction {
 	private String introductionID;
 	private Children child;
 	private Introducter introducter;
-	private String state;
+	private int state;
 	private Date date_introduction;
 	private String note;
 	
@@ -15,7 +15,7 @@ public class Introduction {
 		super();
 	}
 
-	public Introduction(String introductionID, Children child, Introducter introducter, String state,
+	public Introduction(String introductionID, Children child, Introducter introducter, int state,
 			Date date_introduction, String note) {
 		super();
 		this.introductionID = introductionID;
@@ -50,11 +50,11 @@ public class Introduction {
 		this.introducter = introducter;
 	}
 
-	public String getState() {
+	public int getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 

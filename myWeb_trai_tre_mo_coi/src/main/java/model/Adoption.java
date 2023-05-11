@@ -7,7 +7,7 @@ public class Adoption {
 	private String adoptionID;
 	private Adopter adopter;
 	private Children child;
-	private String state;
+	private int state;
 	private Date date_adoption;
 	private String note;
 	
@@ -15,7 +15,7 @@ public class Adoption {
 		super();
 	}
 
-	public Adoption(String adoptionID, Adopter adopter, Children child, String state, Date date_adoption,
+	public Adoption(String adoptionID, Adopter adopter, Children child, int state, Date date_adoption,
 			String note) {
 		super();
 		this.adoptionID = adoptionID;
@@ -50,11 +50,11 @@ public class Adoption {
 		this.child = child;
 	}
 
-	public String getState() {
+	public int getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 

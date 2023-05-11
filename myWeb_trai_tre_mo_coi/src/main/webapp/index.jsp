@@ -1,6 +1,11 @@
 <%@page import="model.User"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page import="database.StaffDAO" %>
+<%@ page import="model.Staff" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+
+
+   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,10 +15,61 @@
 <link rel="stylesheet" href="./assets/css/style1.css">
 <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.3.0-web/css/all.min.css">
 <script src="./js/scroll.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <title>Happy House</title>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
+	
+	
+
+
+<%-- <script>SuccessFeedback = <%= request.getAttribute("SuccessFeedback") %>;
+    if (SuccessFeedback) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Gửi thành công',
+            text: 'Cảm ơn bạn đã phản hồi',
+            confirmButtonText: 'OK'
+        });
+    }
+    
+</script> --%>
+<script>
+SuccessFeedback = <%= request.getAttribute("SuccessFeedback") %>;
+  if (SuccessFeedback) {
+    Swal.fire({
+    	icon: 'success',
+        title: 'Gửi thành công',
+        text: 'Cảm ơn bạn đã phản hồi',
+        confirmButtonText: 'OK'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "index.jsp";
+      }
+    });
+  }
+</script>
+<%-- <script>SuccessIntroduction = <%= request.getAttribute("SuccessIntroduction") %>;
+    if (SuccessIntroduction) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Gửi thành công',
+            text: 'Cảm ơn bạn đã phản hồi',
+            confirmButtonText: 'OK'
+        });
+    }
+</script> --%>
+
+ 
+
+
+    
+<%
+ 				   StaffDAO staffDAO = new StaffDAO();
+    				ArrayList<Staff> staffs = staffDAO.selectAll();
+					%>	
 	<div id="main">
         <!-- top bar -->
         <section id="top-bar">
@@ -81,10 +137,8 @@
                         Ủng hộ
                     </a>
                     <ul class="subnav subnav-child">
-                        <li><a href="">
-                                <i class="fa-solid fa-arrow-right"></i>
-                                Nuôi trẻ hàng tháng</a></li>
-                        <li><a href="">
+                       
+                        <li><a href="./donation.jsp">
                                 <i class="fa-solid fa-arrow-right"></i>
                                 Các sự kiện từ thiện</a></li>
                     </ul>
@@ -95,21 +149,45 @@
                         Danh mục
                     </a>
                     <ul class="subnav subnav-event">
-                        <li><a href="">
+                        <li><a href="./adoption.jsp">
                                 <i class="fa-solid fa-arrow-right"></i>
                                 Nhận nuôi trẻ</a></li>
-                        <li><a href="">
+                        <li><a href="./introduction.jsp">
                                 <i class="fa-solid fa-arrow-right"></i>
                                 Giới thiệu trẻ</a></li>
-                        <li><a href="">
+                               
+                    </ul>
+                </li>
+                 <li>
+                    <a href="#">
+                        <i class="fa-solid fa-calendar-week"></i>
+                       Đăng kí
+                    </a>
+                    <ul class="subnav subnav-event">
+                       
+                                 <li><a href="./adopter_signup.jsp">
                                 <i class="fa-solid fa-arrow-right"></i>
-                                Đánh giá chất lượng</a></li>
+                                Đăng kí nhận nuôi</a></li>
+                        <li><a href="./introducter_signup.jsp">
+                                <i class="fa-solid fa-arrow-right"></i>
+                                Đăng kí giới thiệu</a></li>
                     </ul>
                 </li>
                 <li><a href="#">
                         <i class="fa-solid fa-hand-holding-heart"></i>
                         Liên hệ
                     </a></li>
+                 <li><a href="#">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                        Phản hồi
+                    </a>
+                    <ul class="subnav subnav-child">
+                        <li><a href="#feedback">
+                                <i class="fa-solid fa-arrow-right"></i>
+                               Phản hồi</a></li>
+                       
+                    </ul>
+                </li>   
             </ul>
         </section>
         <!-- end header -->
@@ -177,10 +255,12 @@
                 </div>
             </div>
         </div>
-        <!-- end introduce -->
 
-        <!-- feedback -->
+        <!-- end introduce -->
+	
+         <form action="feed_back" >
         <div id="feedback">
+   <!--       <input type="hidden" name="mod" value="inst" > -->
             <div class="header">
                 <h1>Phản hồi về chất lượng</h1>
                 <hr>
@@ -189,9 +269,23 @@
                 <div class="box">
                     <label for="name">
                         <i class="fa-solid fa-user"></i>
-                        Tên nhân viên:
+                        Tên nhân viên:<%
+            		String error = request.getAttribute("error")+"";
+            		error = (error.equals("null")) ? "" : error;
+            	%>
+            	<div class="error">
+            		<span style="color: red; font-size: 14px"> <%= error %> </span>
+            	</div>
                     </label>
-                    <input type="text" id="name" required>
+                  <!--    <input type="text" id="name" name="name1" required>  -->
+                    <select name="name1" id="raying" required>
+                        <option value="" selected disabled hidden>Chọn tên nhân viên</option>
+                      	<%
+        				for (Staff staff : staffs) {
+    							%>
+    			<option value="<%= staff.getFullname()%>"><%= staff.getFullname() %></option>
+    			<% } %> 
+                    </select> 
 
                     <label for="rating">Đánh giá:</label>
                     <select name="rating" id="raying" required>
@@ -205,13 +299,20 @@
 
                     <label for="comment">Nhận xét của bạn:</label>
                     <textarea id="comment" name="comment" required></textarea>
-
+	<%
+            		String errorF = request.getAttribute("errorF")+"";
+            		errorF = (errorF.equals("null")) ? "" : errorF;
+            	%>
+            	<div class="error">
+            		<span style="color: red; font-size: 14px"> <%= errorF %> </span>
+            	</div>
                     <input class="button" type="submit" value="Phản hồi">
                 </div>
             </div>
+             
         </div>
-        <!-- end feedback -->
-
+       
+        </form>
         <!-- footer -->
         <div id="footer">
             <div class="content">
@@ -238,4 +339,5 @@
 
     </div>
 </body>
+<script  src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css"></script>
 </html>

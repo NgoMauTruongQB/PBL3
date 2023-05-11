@@ -68,7 +68,7 @@ public class children_controller extends HttpServlet {
 			java.sql.Date date = new java.sql.Date(utilDate.getTime());
 			Part file = request.getPart("file-input");
 			String image = file.getSubmittedFileName();
-			String uploadPath = "D:/Study/DoAn/PBL3/myWeb_trai_tre_mo_coi/src/main/webapp/uploads/children/" + image;
+			String uploadPath = "D:/workspace_PBL/PBL3/myWeb_trai_tre_mo_coi/src/main/webapp/uploads/children/" + image;
 			
 			try {
 				FileOutputStream fos = new FileOutputStream(uploadPath);
@@ -154,7 +154,7 @@ public class children_controller extends HttpServlet {
 				java.sql.Date date = new java.sql.Date(utilDate.getTime());
 				Part file = request.getPart("uPhoto");
 				String image = file.getSubmittedFileName();
-				String uploadPath = "D:/Study/DoAn/PBL3/myWeb_trai_tre_mo_coi/src/main/webapp/uploads/children/" + image;
+				String uploadPath = "D:/workspace_PBL/PBL3/myWeb_trai_tre_mo_coi/src/main/webapp/uploads/children/" + image;
 				try {
 					FileOutputStream fos = new FileOutputStream(uploadPath);
 					InputStream is = file.getInputStream();

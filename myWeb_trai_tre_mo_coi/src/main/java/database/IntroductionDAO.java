@@ -32,7 +32,7 @@ public class IntroductionDAO implements DAOInterface<Introduction> {
 				String introductionID = rs.getString("introductionID");
 				String orphanID = rs.getString("orphanID");
 				String introducterID = rs.getString("introducterID");
-				String state = rs.getString("state");
+				int state = rs.getInt("state");
 				Date date_introduction = rs.getDate("date_introduction");
 				String note = rs.getString("note");
 				
@@ -77,7 +77,7 @@ public class IntroductionDAO implements DAOInterface<Introduction> {
 				String introductionID = rs.getString("introductionID");
 				String orphanID = rs.getString("orphanID");
 				String introducterID = rs.getString("introducterID");
-				String state = rs.getString("state");
+				int state = rs.getInt("state");
 				Date date_introduction = rs.getDate("date_introduction");
 				String note = rs.getString("note");
 				
@@ -116,7 +116,7 @@ public class IntroductionDAO implements DAOInterface<Introduction> {
 			st.setString(1, t.getIntroductionID());
 			st.setString(2, t.getChild().getOrphanID());
 			st.setString(3, t.getIntroducter().getIntroducterID());
-			st.setString(4, t.getState());
+			st.setInt(4, t.getState());
 			st.setDate(5, t.getDate_introduction());
 			st.setString(6, t.getNote());
 			
@@ -202,7 +202,7 @@ public class IntroductionDAO implements DAOInterface<Introduction> {
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, t.getChild().getOrphanID());
 			st.setString(2, t.getIntroducter().getIntroducterID());
-			st.setString(3, t.getState());
+			st.setInt(3, t.getState());
 			st.setDate(4, t.getDate_introduction());
 			st.setString(5, t.getNote());
 			st.setString(6, t.getIntroductionID());

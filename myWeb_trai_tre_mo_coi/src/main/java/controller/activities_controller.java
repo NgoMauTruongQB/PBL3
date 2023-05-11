@@ -71,7 +71,7 @@ public class activities_controller extends HttpServlet {
 				
 				Part file = request.getPart("uPhoto");
 				String image = file.getSubmittedFileName();
-				String uploadPath = "D:/Study/DoAn/PBL3/myWeb_trai_tre_mo_coi/src/main/webapp/uploads/activities/" + image;
+				String uploadPath = "D:/workspace_PBL/PBL3/myWeb_trai_tre_mo_coi/src/main/webapp/uploads/activities/" + image;	
 				try {
 					FileOutputStream fos = new FileOutputStream(uploadPath);
 					InputStream is = file.getInputStream();
@@ -118,7 +118,7 @@ public class activities_controller extends HttpServlet {
 			
 			Part file = request.getPart("file-input");
 			String image = file.getSubmittedFileName();
-			String uploadPath = "D:/Study/DoAn/PBL3/myWeb_trai_tre_mo_coi/src/main/webapp/uploads/activities/" + image;
+			String uploadPath = "D:/workspace_PBL/PBL3/myWeb_trai_tre_mo_coi/src/main/webapp/uploads/activities/" + image;
 			
 			try {
 				FileOutputStream fos = new FileOutputStream(uploadPath);
