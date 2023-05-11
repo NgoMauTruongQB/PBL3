@@ -22,26 +22,6 @@
 	    <version>3.1.0</version>
 	    <scope>provided</scope>
 	</dependency>
-	<!-- Load picture -->
-	<dependency>
-	    <groupId>commons-fileupload</groupId>
-	    <artifactId>commons-fileupload</artifactId>
-	    <version>1.5</version>
-	</dependency>
-	<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-	<dependency>
-	    <groupId>commons-io</groupId>
-	    <artifactId>commons-io</artifactId>
-	    <version>2.11.0</version>
-	</dependency>
-	<!-- Excel -->
-	<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
-	<dependency>
-	    <groupId>org.apache.poi</groupId>
-	    <artifactId>poi-ooxml</artifactId>
-	    <version>5.2.3</version>
-	</dependency>
-
   </dependencies>
   <build>
     <plugins>

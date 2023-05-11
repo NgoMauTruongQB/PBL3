@@ -227,45 +227,12 @@ public class FeedbackDAO implements DAOInterface<Feedback>{
 		return result;
 	}
 	
-	public ArrayList<Feedback> getInfomationStaff(String staffID) {
-		ArrayList<Feedback> result = new ArrayList<Feedback>();
-		try {
-			Connection con = JDBCUtil.getConnection();
-			
-			String sql = "SELECT * FROM feedback WHERE staffID = ?";
-			PreparedStatement st = con.prepareStatement(sql);
-			st.setString(1, staffID);
-			
-			System.out.println(sql);
-			ResultSet rs = st.executeQuery();
-			
-			while(rs.next()) {
-				String feedbackID = rs.getString("feedbackID");
-				Date date_of_feedback = rs.getDate("date_of_feedback");
-				String stID = rs.getString("staffID");
-				String content_of_feedback = rs.getString("content_of_feedback");
-				int rating = rs.getInt("rating");
-				
-				Staff nv = new Staff();
-				nv.setStaffID(stID);
-				
-				Staff staff = (new StaffDAO().selectById(nv));
-				
-				Feedback fb = new Feedback(feedbackID, date_of_feedback, staff, content_of_feedback, rating);
-				result.add(fb);
-			}
-			
-			JDBCUtil.closeConnection(con);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-	
 	public static void main(String[] args) {
 		FeedbackDAO fbd = new FeedbackDAO();
-		ArrayList<Feedback> fb = fbd.getInfomationStaff("ST12113");
-			System.out.println(fb.toString());
+//		ArrayList<Feedback> fb = fbd.selectAll();
+//		for (Feedback feedback : fb) {
+//			System.out.println(fb.toString());
+//		}
 		
 //		Feedback fb = new Feedback();
 //		fb.setFeedbackID("FB1221");
@@ -287,6 +254,10 @@ public class FeedbackDAO implements DAOInterface<Feedback>{
 //		fb.add(new Feedback("123331", new Date(2023,06,22), st,"", 5));
 //		fbd.insertAll(fb);
 		
+		Staff st = new Staff();
+		st.setStaffID("ST12113");
+		Feedback t = new Feedback("FB3212",new Date(2023-1900,12,12),st,"Tốt",4);
+		fbd.update(t);
 			
 	}
 

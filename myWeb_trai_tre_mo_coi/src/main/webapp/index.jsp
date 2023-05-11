@@ -30,7 +30,7 @@
                     <i class="fa-solid fa-location-dot"></i>
                     <h6>54 Nguyễn Lương Bằng <br> Liên Chiểu - Đà Nẵng</h6>
                 </div>
-                <%
+                <%	
                 	Object obj = session.getAttribute("user");
                 	User user = null;
                 	if(obj != null)
@@ -68,10 +68,10 @@
                         Hoạt động
                     </a>
                     <ul class="subnav subnav-child">
-                        <li><a href="">
+                        <li><a href="./Activities.jsp">
                                 <i class="fa-solid fa-arrow-right"></i>
                                 Vui chơi giải trí</a></li>
-                        <li><a href="">
+                        <li><a href="./Charity_activities.jsp">
                                 <i class="fa-solid fa-arrow-right"></i>
                                 Từ thiện</a></li>
                     </ul>

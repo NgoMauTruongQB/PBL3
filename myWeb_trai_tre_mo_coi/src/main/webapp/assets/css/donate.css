@@ -65,6 +65,7 @@ color: #065447;
    
 }
 
+
 #line-up{
     width: 100%;
     display: block;
@@ -93,6 +94,17 @@ color: #065447;
 }
 #donate{
     margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Inter';
+font-style: normal;
+color: var(--my-color-1);
+text-transform: uppercase;
+}
+
+#donate-contact{
+    padding-top: 30px;
     margin-bottom: 30px;
     width: 100%;
     text-align: center;

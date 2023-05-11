@@ -10,12 +10,12 @@ public class Staff {
 	private String gender;
 	private String position;
 	private int state;
-	private String phone;
-	private String email;
-	private String photo;
 	
-	public Staff(String staffID, String fullname, Date date_of_birth, String gender, String position, int state,
-			String phone, String email, String photo) {
+	public Staff() {
+		super();
+	}
+
+	public Staff(String staffID, String fullname, Date date_of_birth, String gender, String position, int state) {
 		super();
 		this.staffID = staffID;
 		this.fullname = fullname;
@@ -23,13 +23,6 @@ public class Staff {
 		this.gender = gender;
 		this.position = position;
 		this.state = state;
-		this.phone = phone;
-		this.email = email;
-		this.photo = photo;
-	}
-
-	public Staff() {
-		super();
 	}
 
 	public String getStaffID() {
@@ -80,27 +73,29 @@ public class Staff {
 		this.state = state;
 	}
 
-	public String getPhone() {
-		return phone;
+	@Override
+	public int hashCode() {
+		return Objects.hash(date_of_birth, fullname, gender, position, staffID, state);
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Staff other = (Staff) obj;
+		return Objects.equals(staffID, other.staffID);
 	}
 
-	public String getEmail() {
-		return email;
+	@Override
+	public String toString() {
+		return "Staff [staffID=" + staffID + ", fullname=" + fullname + ", date_of_birth=" + date_of_birth + ", gender="
+				+ gender + ", position=" + position + ", state=" + state + "]";
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
+	
+	
+	
 }

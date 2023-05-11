@@ -7,7 +7,7 @@ public class Adoption {
 	private String adoptionID;
 	private Adopter adopter;
 	private Children child;
-	private int state;
+	private String state;
 	private Date date_adoption;
 	private String note;
 	
@@ -15,7 +15,7 @@ public class Adoption {
 		super();
 	}
 
-	public Adoption(String adoptionID, Adopter adopter, Children child, int state, Date date_adoption,
+	public Adoption(String adoptionID, Adopter adopter, Children child, String state, Date date_adoption,
 			String note) {
 		super();
 		this.adoptionID = adoptionID;
@@ -50,11 +50,11 @@ public class Adoption {
 		this.child = child;
 	}
 
-	public int getState() {
+	public String getState() {
 		return state;
 	}
 
-	public void setState(int state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 
@@ -72,6 +72,30 @@ public class Adoption {
 
 	public void setNote(String note) {
 		this.note = note;
-	}	
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(adopter, adoptionID, child, state, date_adoption, note);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Adoption other = (Adoption) obj;
+		return Objects.equals(adoptionID, other.adoptionID);
+	}
+
+	@Override
+	public String toString() {
+		return "Adoption [adoptionID=" + adoptionID + ", adopter=" + adopter + ", child=" + child + ", state="
+				+ state + ", date_adoption=" + date_adoption + ", note=" + note + "]";
+	}
+	
 	
 }

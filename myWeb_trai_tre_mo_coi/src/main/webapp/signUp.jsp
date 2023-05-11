@@ -23,7 +23,7 @@
 		
 		String email = request.getAttribute("email")+"";
 		email = (email.equals("null")) ? "" : email;
-	%>
+	%>	
 	<div id="login-box">
 		<!-- left -->
 		<div class="left">

@@ -15,14 +15,18 @@ public class StaffDAO implements DAOInterface<Staff> {
 	public ArrayList<Staff> selectAll() {
 		ArrayList<Staff> result = new ArrayList<Staff>();
 		try {
+			//Kết nối với CSDL
 			Connection con = JDBCUtil.getConnection();
 			
+			//Tạo ra đối tượng Statement 
 			String sql = "SELECT * FROM staff";
 			PreparedStatement st = con.prepareStatement(sql);
-			 
+			
+			//Thực thi câu lệnh SQL 
 			System.out.println(sql);
 			ResultSet rs = st.executeQuery();
 			
+			//Lấy thông tin 
 			while(rs.next()) {
 				String staffID = rs.getString("staff_id");
 				String fullname = rs.getString("fullname");
@@ -30,14 +34,12 @@ public class StaffDAO implements DAOInterface<Staff> {
 				String gender = rs.getString("gender");
 				String position = rs.getString("position");
 				int state = rs.getInt("state");
-				String phone = rs.getString("phone");
-				String email = rs.getString("email");
-				String photo = rs.getString("photo");
 				
-				Staff s = new Staff(staffID, fullname, date_of_birth, gender, position, state, phone, email, photo);
+				Staff s = new Staff(staffID, fullname, date_of_birth, gender, position, state);
 				result.add(s);
 			}
 			
+			//Đóng cơ sở dữ liệu
 			JDBCUtil.closeConnection(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -49,15 +51,19 @@ public class StaffDAO implements DAOInterface<Staff> {
 	public Staff selectById(Staff t) {
 		Staff result = null;
 		try {
+			//Kết nối với CSDL
 			Connection con = JDBCUtil.getConnection();
 			
+			//Tạo ra đối tượng Statement 
 			String sql = "SELECT * FROM staff WHERE staff_id=?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, t.getStaffID());
-			 
+			
+			//Thực thi câu lệnh SQL 
 			System.out.println(sql);
 			ResultSet rs = st.executeQuery();
-			 
+			
+			//Lấy thông tin 
 			while(rs.next()) {
 				String staffID = rs.getString("staff_id");
 				String fullname = rs.getString("fullname");
@@ -65,14 +71,12 @@ public class StaffDAO implements DAOInterface<Staff> {
 				String gender = rs.getString("gender");
 				String position = rs.getString("position");
 				int state = rs.getInt("state");
-				String phone = rs.getString("phone");
-				String email = rs.getString("email");
-				String photo = rs.getString("photo");
 				
-				result = new Staff(staffID, fullname, date_of_birth, gender, position, state, phone, email, photo);
+				result = new Staff(staffID, fullname, date_of_birth, gender, position, state);
 				break;
 			}
 			
+			//Đóng cơ sở dữ liệu
 			JDBCUtil.closeConnection(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -84,10 +88,12 @@ public class StaffDAO implements DAOInterface<Staff> {
 	public int insert(Staff t) {
 		int result = 0;
 		try {
+			// Bước 1: tạo kết nối đến CSDL
 			Connection con = JDBCUtil.getConnection();
 			
-			String sql = "INSERT INTO staff (staff_id, fullname, date_of_birth, gender, position, state, phone, email, photo) "+
-					" VALUES (?,?,?,?,?,?,?,?,?)";
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "INSERT INTO staff (staff_id, fullname, date_of_birth, gender, position, state) "+
+					" VALUES (?,?,?,?,?,?)";
 			
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, t.getStaffID());
@@ -96,17 +102,18 @@ public class StaffDAO implements DAOInterface<Staff> {
 			st.setString(4, t.getGender());
 			st.setString(5, t.getPosition());
 			st.setInt(6, t.getState());
-			st.setString(7, t.getPhone());
-			st.setString(8, t.getEmail());
-			st.setString(9, t.getPhoto());
 			
+			// Bước 3: thực thi câu lệnh SQL
 			result = st.executeUpdate();
 			
+			// Bước 4:
 			System.out.println("Bạn đã thực thi: "+ sql);
 			System.out.println("Có "+ result+" dòng bị thay đổi!");
 			
+			// Bước 5:
 			JDBCUtil.closeConnection(con);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -134,14 +141,18 @@ public class StaffDAO implements DAOInterface<Staff> {
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, t.getStaffID());
 			
+			// Bước 3:
 			System.out.println(sql);
 			result = st.executeUpdate();
 			
+			// Bước 4:
 			System.out.println("Bạn đã thực thi: "+ sql);
 			System.out.println("Có "+ result+" dòng bị thay đổi!");
 			
+			// Bước 5:
 			JDBCUtil.closeConnection(con);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -161,8 +172,10 @@ public class StaffDAO implements DAOInterface<Staff> {
 	public int update(Staff t) {
 		int result = 0;
 		try {
+			// Bước 1: tạo kết nối đến CSDL
 			Connection con = JDBCUtil.getConnection();
 			
+			// Bước 2: tạo ra đối tượng statement
 			String sql = "UPDATE staff "+
 					 " SET " +
 					 " fullname=?"+
@@ -170,9 +183,6 @@ public class StaffDAO implements DAOInterface<Staff> {
 					 ", gender=?"+
 					 ", position=?"+
 					 ", state=?"+
-					 ", phone=?"+
-					 ", email=?"+
-					 ", photo=?"+
 					 " WHERE staff_id=?";
 			
 			PreparedStatement st = con.prepareStatement(sql);
@@ -181,24 +191,47 @@ public class StaffDAO implements DAOInterface<Staff> {
 			st.setString(3, t.getGender());
 			st.setString(4, t.getPosition());
 			st.setInt(5, t.getState());
-			st.setString(6, t.getPhone());
-			st.setString(7, t.getEmail());
-			st.setString(8, t.getPhoto());
-			st.setString(9, t.getStaffID());
+			st.setString(6, t.getStaffID());
 			
+			// Bước 3: thực thi câu lệnh SQL
 
 			System.out.println(sql);
 			result = st.executeUpdate();
 			
+			// Bước 4:
 			System.out.println("Bạn đã thực thi: "+ sql);
 			System.out.println("Có "+ result+" dòng bị thay đổi!");
 			
+			// Bước 5:
 			JDBCUtil.closeConnection(con);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return result;
+	}
+	
+	public static void main(String[] args) {
+		StaffDAO std = new StaffDAO();
+//		ArrayList<Staff> kq = std.selectAll();
+//		for (Staff staff : kq) {
+//			System.out.println(staff.toString());
+//		}
+//		
+//		Staff st = std.selectById(new Staff("111221","",null,"","",0));
+//		System.out.println(st);
+		
+//		Staff st_new = new Staff("ST12119","Trần Lê Minh",new Date(2000-1900, 10, 10),"Nam","Nhân viên chăm sóc",1);
+//		std.insert(st_new);
+		
+		Staff st_new = new Staff();
+		st_new.setStaffID("ST12119");
+		std.delete(st_new);
+		
+//		Staff st_new = new Staff("123331","Nguyễn Viết Hoài Bảo ",new Date(1998-1900, 11, 28),"Nam","Bảo vệ",1);
+//		std.update(st_new);
+		
 	}
 }
 

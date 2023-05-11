@@ -13,7 +13,6 @@ public class Event {
 	private int state;
 	private Staff staff;
 	private String content;
-	
 	public Event() {
 		super();
 	}
@@ -29,6 +28,14 @@ public class Event {
 		this.number_of_children = number_of_children;
 		this.state = state;
 		this.staff = staff;
+		this.content= content;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
 		this.content = content;
 	}
 
@@ -96,12 +103,28 @@ public class Event {
 		this.staff = staff;
 	}
 
-	public String getContent() {
-		return content;
+	@Override
+	public int hashCode() {
+		return Objects.hash(date_begin, date_end, eventID, event_of_name, location, number_of_children, staff, state, content);
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Event other = (Event) obj;
+		return Objects.equals(eventID, other.eventID);
 	}
 
+	@Override
+	public String toString() {
+		return "Event [eventID=" + eventID + ", date_begin=" + date_begin + ", date_end=" + date_end + ", location="
+				+ location + ", event_of_name=" + event_of_name + ", number_of_children=" + number_of_children
+				+ ", state=" + state + ", staff=" + staff + ", content="+ content+ "]";
+	}
+	
 }

@@ -23,9 +23,11 @@ public class Charity_activitiesDAO implements DAOInterface<Charity_activities> {
 			String sql = "SELECT * FROM charity_activities";
 			PreparedStatement st = con.prepareStatement(sql);
 			
+			//Thực thi câu lệnh SQL 
 			System.out.println(sql);
 			ResultSet rs = st.executeQuery();
 			
+			//bước 4 
 			while(rs.next()) {
 				String activityID = rs.getString("activityID");
 				String name_of_activity = rs.getString("name_of_activity");
@@ -34,13 +36,13 @@ public class Charity_activitiesDAO implements DAOInterface<Charity_activities> {
 				double money_collected = rs.getDouble("money_collected");
 				String purpose_of_activity = rs.getString("purpose_of_activity");
 				String staffID = rs.getString("staffID");
-				String photo = rs.getString("photo");
+				String image = rs.getString("image");
 				
 				Staff nv = new Staff();
 				nv.setStaffID(staffID);
 				Staff staff = (new StaffDAO().selectById(nv));
 				
-				Charity_activities ca = new Charity_activities(activityID, name_of_activity, date_begin, date_end, money_collected, purpose_of_activity, staff, photo);
+				Charity_activities ca = new Charity_activities(activityID, name_of_activity, date_begin, date_end, money_collected, purpose_of_activity, staff, image);
 				result.add(ca);
 			}
 			
@@ -55,15 +57,19 @@ public class Charity_activitiesDAO implements DAOInterface<Charity_activities> {
 	public Charity_activities selectById(Charity_activities t) {
 		Charity_activities result = null;
 		try {
+			//Bước 1
 			Connection con = JDBCUtil.getConnection();
 			
+			//Tạo ra đối tượng Statement 
 			String sql = "SELECT * FROM charity_activities WHERE activityID=?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, t.getActivityID());
 			
+			//Thực thi câu lệnh SQL 
 			System.out.println(sql);
 			ResultSet rs = st.executeQuery();
 			
+			//Lấy thông tin 
 			while(rs.next()) {
 				String activityID = rs.getString("activityID");
 				String name_of_activity = rs.getString("name_of_activity");
@@ -72,13 +78,13 @@ public class Charity_activitiesDAO implements DAOInterface<Charity_activities> {
 				Double money_collected = rs.getDouble("money_collected");
 				String purpose_of_activity = rs.getString("purpose_of_activity");
 				String staffID = rs.getString("staffID");
-				String photo = rs.getString("photo");
+				String image = rs.getNString("image");
 				
 				Staff nv = new Staff();
 				nv.setStaffID(staffID);
 				Staff staff = (new StaffDAO().selectById(nv));
 				
-				result = new Charity_activities(activityID, name_of_activity, date_begin, date_end, money_collected, purpose_of_activity, staff, photo);
+				result = new Charity_activities(activityID, name_of_activity, date_begin, date_end, money_collected, purpose_of_activity, staff, image);
 				break;
 			}
 			
@@ -93,10 +99,12 @@ public class Charity_activitiesDAO implements DAOInterface<Charity_activities> {
 	public int insert(Charity_activities t) {
 		int result = 0;
 		try {
+			// Bước 1: tạo kết nối đến CSDL
 			Connection con = JDBCUtil.getConnection();
 			
-			String sql = "INSERT INTO charity_activities (activityID, name_of_activity, date_begin, date_end, money_collected, purpose_of_activity, staffID, photo) "+
-					" VALUES (?,?,?,?,?,?,?,?)";
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "INSERT INTO charity_activities (activityID, name_of_activity, date_begin, date_end, money_collected, purpose_of_activity, staffID, image) "+
+					" VALUES (?,?,?,?,?,?,?, ?)";
 			
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, t.getActivityID());
@@ -106,10 +114,12 @@ public class Charity_activitiesDAO implements DAOInterface<Charity_activities> {
 			st.setDouble(5, t.getMoney_collected());
 			st.setString(6, t.getPurpose_of_activity());
 			st.setString(7, t.getStaff().getStaffID());
-			st.setString(8, t.getPhoto());
+			st.setString(8,t.getImage());
 			
+			// Bước 3: thực thi câu lệnh SQL
 			result = st.executeUpdate();
 			
+			// Bước 4:
 			System.out.println("Bạn đã thực thi: "+ sql);
 			System.out.println("Có "+ result+" dòng bị thay đổi!");
 			
@@ -135,20 +145,25 @@ public class Charity_activitiesDAO implements DAOInterface<Charity_activities> {
 	public int delete(Charity_activities t) {
 		int result = 0;
 		try {
+			// Bước 1: tạo kết nối đến CSDL
 			Connection con = JDBCUtil.getConnection();
 			
+			// Bước 2: tạo ra đối tượng statement
 			String sql = "DELETE from charity_activities "+
 					 " WHERE activityID =?";
 			
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, t.getActivityID());
 			
+			// Bước 3: thực thi câu lệnh SQL
 			System.out.println(sql);
 			result = st.executeUpdate();
 			
+			// Bước 4:
 			System.out.println("Bạn đã thực thi: "+ sql);
 			System.out.println("Có "+ result+" dòng bị thay đổi!");
 			
+			// Bước 5:
 			JDBCUtil.closeConnection(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -170,8 +185,10 @@ public class Charity_activitiesDAO implements DAOInterface<Charity_activities> {
 	public int update(Charity_activities t) {
 		int result = 0;
 		try {
+			// Bước 1: tạo kết nối đến CSDL
 			Connection con = JDBCUtil.getConnection();
-
+			
+			// Bước 2: tạo ra đối tượng statement
 			String sql = "UPDATE charity_activities "+
 					 " SET " +
 					 " name_of_activity=?"+
@@ -180,7 +197,7 @@ public class Charity_activitiesDAO implements DAOInterface<Charity_activities> {
 					 ", money_collected=?"+
 					 ", purpose_of_activity=?"+
 					 ", staffID=?"+
-					 ", photo=?"+
+					 ", image=?"+
 					 " WHERE activityID=?";
 			
 			PreparedStatement st = con.prepareStatement(sql);
@@ -190,26 +207,54 @@ public class Charity_activitiesDAO implements DAOInterface<Charity_activities> {
 			st.setDouble(4, t.getMoney_collected());
 			st.setString(5, t.getPurpose_of_activity());
 			st.setString(6, t.getStaff().getStaffID());
-			st.setString(7, t.getPhoto());
-			st.setString(8, t.getActivityID());
+			st.setString(7, t.getActivityID());
+			st.setString(8, t.getImage());
 			
 			Staff nv = new Staff();
 			nv.setStaffID(t.getStaff().getStaffID());
 			Staff staff = (new StaffDAO().selectById(nv));
 			
-			
+			// Bước 3: thực thi câu lệnh SQL
+
 			System.out.println(sql);
 			result = st.executeUpdate();
-
+			
+			// Bước 4:
 			System.out.println("Bạn đã thực thi: "+ sql);
 			System.out.println("Có "+ result+" dòng bị thay đổi!");
-
+			
+			// Bước 5:
 			JDBCUtil.closeConnection(con);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return result;
 	}
 	
+	public static void main(String[] args) {
+		Charity_activitiesDAO cad = new Charity_activitiesDAO();
+		
+//		Charity_activities ca = new Charity_activities();
+//		ca.setActivityID("HD1201");
+//		System.out.println(cad.selectById(ca).toString());
+		
+//		Staff s = new Staff();
+//		s.setStaffID("111221");
+//		Charity_activities ca = new Charity_activities("HD1202", "100K ủng hộ trẻ em bị hở hàm ếch", new Date(2023-1990,02,02), null, 200000000, null, s);
+//		cad.insert(ca);
+		
+//		Charity_activities cas = new Charity_activities();
+//		cas.setActivityID("HD1202");
+//		cad.delete(cas);
+		
+//		Charity_activities ca = new Charity_activities("HD1202", "100K cùng bé đến trường", new Date(2023-1990,02,02),  new Date(2024-1990,02,02), 20000000, "Ủng hộ các bé ở Tỉnh Lào Cai", s);
+//		cad.update(ca);
+		
+		ArrayList<Charity_activities> list = cad.selectAll();
+		for (Charity_activities charity_activities : list) {
+			System.out.println(charity_activities.toString());
+		}
+	}
 }

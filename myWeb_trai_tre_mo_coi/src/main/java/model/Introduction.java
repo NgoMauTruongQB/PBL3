@@ -7,7 +7,7 @@ public class Introduction {
 	private String introductionID;
 	private Children child;
 	private Introducter introducter;
-	private int state;
+	private String state;
 	private Date date_introduction;
 	private String note;
 	
@@ -15,7 +15,7 @@ public class Introduction {
 		super();
 	}
 
-	public Introduction(String introductionID, Children child, Introducter introducter, int state,
+	public Introduction(String introductionID, Children child, Introducter introducter, String state,
 			Date date_introduction, String note) {
 		super();
 		this.introductionID = introductionID;
@@ -50,11 +50,11 @@ public class Introduction {
 		this.introducter = introducter;
 	}
 
-	public int getState() {
+	public String getState() {
 		return state;
 	}
 
-	public void setState(int state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 
@@ -78,4 +78,24 @@ public class Introduction {
 	public int hashCode() {
 		return Objects.hash(child, state, date_introduction, introducter, introductionID, note);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Introduction other = (Introduction) obj;
+		return Objects.equals(introductionID, other.introductionID);
+	}
+
+	@Override
+	public String toString() {
+		return "Introduction [introductionID=" + introductionID + ", child=" + child + ", introducter=" + introducter
+				+ ", state=" + state + ", date_introduction=" + date_introduction + ", note=" + note + "]";
+	}
+	
+	
 }

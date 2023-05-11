@@ -1,15 +1,3 @@
-<%@page import="java.util.Calendar"%>
-<%@page import="database.donationStatisticsDAO"%>
-<%@page import="model.Monthly_statistics"%>
-<%@page import="database.DonationDAO"%>
-<%@page import="model.Charity_activities"%>
-<%@page import="database.Charity_activitiesDAO"%>
-<%@page import="model.Staff"%>
-<%@page import="database.StaffDAO"%>
-<%@page import="model.Children"%>
-<%@page import="database.ChildrenDAO"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="database.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -17,126 +5,105 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Happy House</title>
-    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.3.0-web/css/all.css">
-    <link rel="stylesheet" href="./assets/css/sectionCounter.css">
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="/View/assets/fonts/fontawesome-free-6.3.0-web/css/all.min.css">
+    <script src="./js/scroll.js"></script>
 </head>
 <body>
-	<%@ include file="header.jsp" %>
-    <div class="container">
-	    <div class="row">
-	            <div class="column">
-	                <div class="card card1 row">
-	                    <p class="column"><i class="fa-solid fa-children"></i></p>
-	                    <div>
-	                    	<h3>11</h3>
-	                    	<p>Trẻ đang sinh sống</p>
-	                    </div>
-	                </div>
-	            </div>
-	    
-	            <div class="column">
-	                <div class="card card2 row">
-	                    <p class="column"><i class="fa-solid fa-user-nurse"></i></p>
-	                    <h3>55+</h3>
-	                    <p>Cán bộ đang công tác</p>
-	                </div>
-	            </div>
-	    
-	            <div class="column">
-	                <div class="card card3 row">
-	                    <p class="column"><i class="fa-solid fa-users"></i></p>
-	                    <h3>100+</h3>
-	                    <p>Tài khoản đang hoạt động</p>
-	                </div>
-	            </div>
-	    
-	            <div class="column">
-	                <div class="card card4 row">
-	                    <p class="column"><i class="fa-solid fa-hand-holding-heart"></i></p>
-	                    <h3>100+</h3>
-	                    <p>Hoạt động từ thiện</p>
-	                </div>
-	            </div>
-	        </div>
-	    
-	        <div class="row draw">
-	            <div id="donaton_chart" class="column"></div>
-	        </div>
-	    </div>
-	
-	    <script>
-	    <%  
-	    	ChildrenDAO childrenDAO = new ChildrenDAO();
-	    	ArrayList<Children> c = childrenDAO.selectAll();
-	    	int count1 = c.size();
-	    	StaffDAO staffDao = new StaffDAO();
-	    	ArrayList<Staff> s = staffDao.selectAll();
-	    	int count2 = s.size();
-	    	UserDAO userDao = new UserDAO();
-	    	ArrayList<User> u = userDao.selectAll();
-	    	int count3 = u.size();
-	    	Charity_activitiesDAO charity_activitiesDAO = new Charity_activitiesDAO();
-	    	ArrayList<Charity_activities> ca = charity_activitiesDAO.selectAll();
-	    	int count4 = ca.size();
-	    	donationStatisticsDAO doDao = new donationStatisticsDAO();
-	    	ArrayList<Monthly_statistics> list = doDao.selectAllMonth();
-	    	Calendar calendar = Calendar.getInstance();
-	    	int year = calendar.get(Calendar.YEAR);
-		 %>
-	        // Draw
-	        google.charts.load('current', { 'packages': ['corechart'] });
-	        google.charts.setOnLoadCallback(drawChart);
-	
-	        function drawChart() {
-	            var data = new google.visualization.DataTable();
-	            data.addColumn('number', 'Tháng');
-	            data.addColumn('number', 'Tiền');
-	            data.addRows([
-	                [0, 0]
-	                <%  for (Monthly_statistics m : list) { %>
-		         	,[<% if (year == m.getYear()) {%> <%= m.getMonth() %>, <%= m.getTotal()%> <%} %>]
-		          <% } %>
-	            ]);
-	
-	            var options = {
-	                title: 'Số tiền quyên góp được hằng tháng',
-	                animation: {
-	                    duration: 1000,
-	                    easing: 'out',
-	                    startup: true
-	                },
-	                legend: 'none',
-	                colors: ['#8892d6'],
-	                orientation: 'vertical'
-	            };
-	
-	            var chart = new google.visualization.BarChart(document.getElementById('donaton_chart'));
-	            chart.draw(data, options);
-	        }
+    <!-- top bar -->
+    <section id="top-bar">
+        <div class="brand">
+            <img src="./assets/img/logo/logo_happy_house.png" alt="logo_happy_house">
+            <h1>Happy House</h1>
+        </div>
+        <div class="infor">
+            <div class="contact">
+                <i class="fa-solid fa-address-book"></i>
+                <h6>0921123123 <br> happyhouse@gmail.com</h6>
+            </div>
+            <div class="address">
+                <i class="fa-solid fa-location-dot"></i>
+                <h6>54 Nguyễn Lương Bằng <br> Liên Chiểu - Đà Nẵng</h6>
+            </div>
+            <div class="login">
+                <a href="./login.html">
+                    <i class="fa-solid fa-right-to-bracket"></i> 
+                    Đăng nhập
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- end top bar -->
 
-	        var targets = [<%= count1%>, <%= count2%>, <%= count3%>, <%= count4%>];
-	        var counters = document.querySelectorAll('.card h3');
-	        var countInterval = 50;
-	
-	        function count(counter, target) {
-	            var count = 0; 
-	
-	            var interval = setInterval(function() {
-	                count += 1;
-	                counter.innerText = count;
-	                if (count === target) {
-	                    clearInterval(interval);
-	                }
-	            }, countInterval);
-	        }
-	
-	        for (var i = 0; i < counters.length; i++) {
-	            count(counters[i], targets[i]);
-	        }
-	
-	    </script>
-    </div>
-     <jsp:include page="footer.jsp"></jsp:include>
+    <!-- header -->
+        <section id="header">
+            <ul id="nav">
+                <li><a href="#">
+                    <i class="fa-solid fa-user"></i>
+                    Tài khoản
+                </a></li>
+                <li>
+                    <a href="#">
+                    <i class="fa-solid fa-children"></i>
+                    Trẻ
+                    </a>
+                    <ul class="subnav subnav-child">
+                        <li><a href="">
+                            <i class="fa-solid fa-arrow-right"></i>
+                            Danh sách</a></li>
+                        <li><a href="">
+                            <i class="fa-solid fa-arrow-right"></i>
+                            Hoạt động nhận nuôi</a></li>
+                        <li><a href="">
+                            <i class="fa-solid fa-arrow-right"></i>
+                            Giới thiệu vào trung tâm</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">
+                    <i class="fa-solid fa-user-nurse"></i>
+                    Nhân viên
+                </a></li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-calendar-week"></i>
+                        Sự kiện 
+                    </a>
+                    <ul class="subnav subnav-event">
+                        <li><a href="">
+                            <i class="fa-solid fa-arrow-right"></i>
+                            Hoạt động vui chơi</a></li>
+                        <li><a href="">
+                            <i class="fa-solid fa-arrow-right"></i>
+                            Hoạt động từ thiện</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                    Nhà hảo tâm
+                </a></li>
+                <li><a href="#">
+                    <i class="fa-brands fa-square-steam"></i>
+                    Trang thiết bị
+                </a></li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-coins"></i>
+                        Tài chính
+                    </a>
+                    <ul class="subnav subnav-statis">
+                        <li><a href="">
+                            <i class="fa-solid fa-arrow-right"></i>
+                            Thống kê chi tiêu</a></li>
+                        <li><a href="">
+                            <i class="fa-solid fa-arrow-right"></i>
+                            Thống kê tiền quyên góp</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    <!-- end header -->
+
+    <div class="slider"></div>
 </body>
 </html>
