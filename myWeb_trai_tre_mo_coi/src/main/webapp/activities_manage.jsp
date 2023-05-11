@@ -87,6 +87,7 @@
                 <% } %>
                 <script>
 	            function edit(id) {
+	            	console.log(id);
 	            	  window.location.href = "activities_controller?id=" + id + "&mod=getInfo";
 	            	}
 	            function confirmDelete(id) {

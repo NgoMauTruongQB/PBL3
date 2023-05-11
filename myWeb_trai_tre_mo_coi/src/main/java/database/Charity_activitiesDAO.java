@@ -197,7 +197,7 @@ public class Charity_activitiesDAO implements DAOInterface<Charity_activities> {
 			nv.setStaffID(t.getStaff().getStaffID());
 			Staff staff = (new StaffDAO().selectById(nv));
 			
-
+			
 			System.out.println(sql);
 			result = st.executeUpdate();
 

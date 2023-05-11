@@ -45,7 +45,7 @@
             </div>
         </div>
 
-        <!-- Infomation -->
+        <!-- Infomation -->	
         <div class="info">
             <form action="staff_controller" method="post" enctype="multipart/form-data">
             <input type="hidden" name="mod" value="updateStaff">
