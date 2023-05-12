@@ -13,12 +13,12 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class Email {
-	// password: bghlidipfisgtabb
+	// password: ovugupmwvafrikpc
 	// email: happyhousepbl@gmail.com
 	// mk email: happyhouse01
 	
 	static final String from = "happyhousepbl@gmail.com";
-	static final String password = "bghlidipfisgtabb";
+	static final String password = "ovugupmwvafrikpc";
 	
 	public static boolean SendEmailIntroduction(String to, String titleMail, String name, String child) {
 		// properties

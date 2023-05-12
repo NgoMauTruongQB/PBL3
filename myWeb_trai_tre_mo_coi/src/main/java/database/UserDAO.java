@@ -76,6 +76,41 @@ public class UserDAO implements DAOInterface<User> {
 		}
 		return result;
 	}
+	
+	public User selectById(String t) {
+		User result = null;
+		try {
+			Connection con = JDBCUtil.getConnection();
+			
+			//Tạo ra đối tượng Statement 
+			String sql = "SELECT * FROM user WHERE id=?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, t);
+			
+			//Thực thi câu lệnh SQL 
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+			
+			//Lấy thông tin 
+			while(rs.next()) {
+				String id = rs.getString("id");
+				String username = rs.getString("username");
+				String email = rs.getString("email");
+				String password = rs.getString("password");
+				String fullname = rs.getString("fullname");
+				String role = rs.getString("role");
+				int state = rs.getInt("state");
+				
+				result = new User(id, username, email, password, fullname, role, state);
+				break;
+			}
+			
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	@Override
 	public int insert(User t) {

@@ -88,6 +88,47 @@ public class Charity_activitiesDAO implements DAOInterface<Charity_activities> {
 		}
 		return result;
 	}
+	
+	public Charity_activities selectById(String t) {
+		Charity_activities result = null;
+		try {
+			//Bước 1
+			Connection con = JDBCUtil.getConnection();
+			
+			//Tạo ra đối tượng Statement 
+			String sql = "SELECT * FROM charity_activities WHERE activityID=?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, t);
+			
+			//Thực thi câu lệnh SQL 
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+			
+			//Lấy thông tin 
+			while(rs.next()) {
+				String activityID = rs.getString("activityID");
+				String name_of_activity = rs.getString("name_of_activity");
+				Date date_begin = rs.getDate("date_begin");
+				Date date_end = rs.getDate("date_end");
+				Double money_collected = rs.getDouble("money_collected");
+				String purpose_of_activity = rs.getString("purpose_of_activity");
+				String staffID = rs.getString("staffID");
+				String photo = rs.getString("photo");
+				
+				Staff nv = new Staff();
+				nv.setStaffID(staffID);
+				Staff staff = (new StaffDAO().selectById(nv));
+				
+				result = new Charity_activities(activityID, name_of_activity, date_begin, date_end, money_collected, purpose_of_activity, staff, photo);
+				break;
+			}
+			
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	@Override
 	public int insert(Charity_activities t) {

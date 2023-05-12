@@ -80,6 +80,40 @@ public class ChildrenDAO implements DAOInterface<Children> {
 		}
 		return result;
 	}
+	
+	public Children selectById(String t) {
+		Children result = null;
+		try {
+			Connection con = JDBCUtil.getConnection();
+			
+			String sql = "SELECT * FROM children WHERE name=?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, t);
+			
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+			
+			while(rs.next()) {
+				String orphanID = rs.getString("orphanID");
+				String name = rs.getString("name");
+				Date date_of_birth = rs.getDate("date_of_birth");
+				String gender = rs.getString("gender");
+				String reason = rs.getString("reason");
+				String health_status = rs.getString("health_status");
+				String education = rs.getString("education");
+				int state = rs.getInt("state");
+				String photo = rs.getString("photo");
+				
+				result = new Children(orphanID, name, date_of_birth, gender, reason, health_status, education, state, photo);
+				break;
+			}
+			
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	@Override
 	public int insert(Children t) {

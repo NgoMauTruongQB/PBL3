@@ -11,12 +11,10 @@
 
 body{
     font-family: 'Roboto',sans-serif;
-    /* background-color: gray; */
 }
 
 #main{
     box-sizing: border-box;
-    /* background-color: var(--my-color-5); */
 }
 
 a{

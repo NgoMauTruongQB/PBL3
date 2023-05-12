@@ -106,8 +106,7 @@ a{
 
 .infor .login a{
     padding: 0 5px 0 5px;
-    color: var(--my-color-4)
-    /* font-weight: 900; */
+    color: var(--my-color-4);
 }
 
 .infor .login i{
