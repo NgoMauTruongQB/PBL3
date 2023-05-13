@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import database.ChildrenDAO;
+import database.IntroductionDAO;
 import model.Children;
+import model.Introduction;
 
 @MultipartConfig
 @WebServlet("/children_controller")

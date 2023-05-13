@@ -112,16 +112,22 @@
 	            ]);
 	
 	            var options = {
-	                title: 'Số tiền quyên góp được hằng tháng',
-	                animation: {
-	                    duration: 1000,
-	                    easing: 'out',
-	                    startup: true
-	                },
-	                legend: 'none',
-	                colors: ['#8892d6'],
-	                orientation: 'vertical'
-	            };
+	            		  title: 'Số tiền quyên góp được hằng tháng',
+	            		  animation: {
+	            		    duration: 1000,
+	            		    easing: 'out',
+	            		    startup: true
+	            		  },
+	            		  legend: 'none',
+	            		  colors: ['#8892d6'],
+	            		  orientation: 'vertical',
+	            		  vAxis: {
+	            		    gridlines: { color: 'transparent' }
+	            		  },
+	            		  hAxis: {
+	            		    gridlines: { color: 'transparent' }
+	            		  }
+	            		};
 	
 	            var chart = new google.visualization.BarChart(document.getElementById('donaton_chart'));
 	            chart.draw(data, options);
