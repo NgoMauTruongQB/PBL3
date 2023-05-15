@@ -4,26 +4,23 @@
 <%@page import="java.util.Arrays"%>
 <%@page import="model.Charity_activities"%>
 <%@page import="database.Charity_activitiesDAO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.ArrayList"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Happy House</title>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="./assets/css/style1.css">
-<link rel="stylesheet"
-	href="assets/fonts/fontawesome-free-6.3.0-web/css/all.css">
-<link rel="stylesheet"
-	href="/View/assets/fonts/themify-icons-font/themify-icons/themify-icons.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!--  -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Happy House</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="./assets/css/style1.css">
+	<link rel="stylesheet" href="assets/fonts/fontawesome-free-6.3.0-web/css/all.css">
+	<link rel="stylesheet" href="/View/assets/fonts/themify-icons-font/themify-icons/themify-icons.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="icon" href="./assets/img/logo/logo_happy_house.png">
+	<script src="./js/scroll.js"></script>
 </head>
 
 <body>
@@ -125,40 +122,38 @@
 		%>
 	</div>
 	<script>
-        // Get the modal
-        var modals = [];
-        var btns = [];
-        <%for (int i = 0; i < ids.length; i++) {%>
-        var modal = document.getElementById("myModal<%=ids[i]%>");
-        var btn = document.getElementById("myBtn<%=ids[i]%>
-		");
-		if (modal) {
-			modals.push(modal);
-		}
-		if (btn) {
-			btns.push(btn);
-		}
-	<%}%>
-		// When the user clicks the button, open the modal 
-		for (var i = 0; i < btns.length; i++) {
-			btns[i].onclick = function(index) {
-				return function() {
-					modals[index].style.display = "block";
-				}
-			}(i);
-		}
-
-		// When the user clicks anywhere outside of the modal, close it
-		window.onclick = function(event) {
-			for (var i = 0; i < modals.length; i++) {
-				if (event.target == modals[i]) {
-					modals[i].style.display = "none";
-				}
-			}
-		}
+	  // Get the modal
+	  var modals = [];
+	  var btns = [];
+	  <% for (int i=0; i<ids.length; i++) { %>
+	    var modal = document.getElementById("myModal<%=ids[i]%>");
+	    var btn = document.getElementById("myBtn<%=ids[i]%>");
+	    if (modal) {
+	      modals.push(modal);
+	    }
+	    if (btn) {
+	      btns.push(btn);
+	    }
+	  <% } %>
+		
+	  // When the user clicks the button, open the modal 
+	  for (var i=0; i<btns.length; i++) {
+	    btns[i].onclick = function(index) {
+	      return function() {
+	        modals[index].style.display = "block";
+	      }
+	    }(i);
+	  }
+		
+	  // When the user clicks anywhere outside of the modal, close it
+	  window.onclick = function(event) {
+	    for (var i=0; i<modals.length; i++) {
+	      if (event.target == modals[i]) {
+	        modals[i].style.display = "none";
+	      }
+	    }
+	  }
 	</script>
-
-
 </body>
 
 </html>

@@ -2,52 +2,43 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.3.0-web/css/all.min.css">
-<link rel="stylesheet" type="text/css" href="./assets/css/signUp.css">
-<title>Sign up</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.3.0-web/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/register.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Happy House</title>
 </head>
 <body>
-<form action="introducter_signup" method="post">
-	<div id="login-box">
+	<%@ include file="headerUser.jsp" %>
+    <div id="wrapper">
+        <h2>Đăng kí trở thành người giới thiệu</h2>
+        <hr>
+    </div>
+
+	<div id="register">
 		<!-- left -->
 		<div class="left">
-			<div class="brand">
-				<img src="./assets/img/logo/logo_happy_house.png" alt="Happy House"
-					class="logo">
-				<div class="name">Happy House</div>
-			</div>
-			<hr>
-			<div class="slogan">
-				"Bớt đi một đứa trẻ đau khổ <br> là thêm một người lớn hạnh phúc."
-			</div>
+			<img src="./assets/img/icon/TraiTim.png" alt="">
 		</div>
 		<!-- right -->
 		<div class="right">
-			<h1>Đăng kí trở thành người giới thiệu</h1>
-			<form action="" method="get" onsubmit="return validateForm()">
-			<label>Phone number:</label>
-			<input type="text" name="phone" required="required" />
-			<label>Address: </label>
-			<input type="text" name="address" id="username" required="required" /> 
-			<label>Note: </label>
-			<input type="text" name="note" id="email" required="required">
-			 
-			<input type="submit" name="submit" id="submit" value="Đăng kí" onclick="validateForm"/>
+			<form action="introducter_signup" method="post">
+                <input type="text" name="phone" required="required" placeholder="Số điện thoại" />
+                <input type="text" name="address" required="required" placeholder="Địa chỉ"/> 
+                <input type="text" name="note" required="required" placeholder="Ghi chú">
+                <button type="submit" name="submit" id="submit"> Đăng kí </button>
 			</form>
-				<%
-            		String error = request.getAttribute("error")+"";
-            		error = (error.equals("null")) ? "" : error;
-            	%>
-            	<div class="error">
-            		<span style="color: red; font-size: 14px"> <%= error %> </span>
-            	</div>
+            <%
+                String error = request.getAttribute("error")+"";
+                error = (error.equals("null")) ? "" : error;
+            %>
+            <div class="error">
+                <span style="color: red; font-size: 14px"> <%= error %> </span>
+            </div>
 		</div>
-	
 	</div>
-	</form>
 </body>
-
 </html>

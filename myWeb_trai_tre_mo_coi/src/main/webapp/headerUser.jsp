@@ -69,13 +69,13 @@
                         Trang chủ
                     </a></li>
                 <li class="js-open-subnav">
-                    <a href="activities.jsp">
+                    <a href="event.jsp">
                         <i class="fa-solid fa-users-rectangle"></i>
                         Hoạt động
                         <i class="fa-solid fa-caret-down"></i>
                     </a>
                     <ul class="subnav subnav-child js-subnav">
-                        <li><a href="activities.jsp">
+                        <li><a href="event.jsp">
                                 <i class="fa-solid fa-arrow-right"></i>
                                 Vui chơi giải trí</a></li>
                         <li><a href="charity_activities.jsp">
@@ -115,7 +115,7 @@
                                 Đăng kí giới thiệu</a></li>
                     </ul>
                 </li>
-                <li><a href="#feedback">
+                <li><a href="index.jsp#feedback">
                     <i class="fa-solid fa-hand-holding-heart"></i>
                     Phản hồi
                 </a></li>

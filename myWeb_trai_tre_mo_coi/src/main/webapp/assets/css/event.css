@@ -1,0 +1,133 @@
+:root{
+    --my-color-1: #32B6A1;
+    --my-color-2: #8BC43F;
+    --my-color-3: #087866;
+    --my-color-4: #065447;
+    --my-color-5: #F5F5F5;
+}
+
+body {
+    font-family: 'Roboto',sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#wrapper {
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+#wrapper h2 {
+    font-family: 'Roboto', sans-serif;
+    margin-top: 30px;
+    color: var(--my-color-3);
+    padding-bottom: 10px;
+    text-transform: uppercase;
+}
+
+#wrapper hr{
+    background-color: var(--my-color-4);
+    color: var(--my-color-4);
+    margin: 10px 30% 30px 30%;   
+}
+
+.accordion-div{
+    margin: 30px auto;
+    width: 75%;
+}
+.accordion {
+    color: #fff;
+    cursor: pointer;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    width: 100%;
+    transition: 0.4s;
+}
+  
+.accordion label {
+	font-family: 'Roboto', sans-serif;
+    display: block;
+    align-items: center;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+label::after{
+    float: right;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.panel {
+    padding: 10px;
+    display: none;
+    background-color: #fff;
+    overflow: hidden;
+    color: black;
+    border-radius: 0 0 4px 4px;
+}
+
+.accordion-div li{
+    list-style: none;
+    width: 100%;
+    margin :15px;
+    margin-left: -10px;
+    padding: 4px;
+    border-radius: 4px;
+    color: #fff;
+
+}
+
+.accordion-div li[name="li1"]{
+    background: var(--my-color-1);
+}
+
+.accordion-div li[name="li2"]{
+    background: var(--my-color-2);
+}
+
+.accordion-div li[name="li3"]{
+    background: var(--my-color-3);
+}
+
+.accordion-div li[name="li4"]{ 
+    background: var(--my-color-4);
+}
+
+button[name="btn1"]{
+    background: var(--my-color-1);
+}
+
+button[name="btn2"]{
+    background: var(--my-color-2);
+}
+
+button[name="btn3"]{
+    background: var(--my-color-3);
+}
+
+button[name="btn4"]{
+    background: var(--my-color-4);
+}
+
+.accordion-line p{
+    display: inline-block;
+    line-height: 20px;
+}
+
+

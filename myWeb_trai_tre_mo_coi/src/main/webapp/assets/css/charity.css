@@ -15,8 +15,10 @@ body {
     box-sizing: border-box;
 }
 
-a:hover, a {
-    text-decoration: none;
+a, a:hover {
+    text-decoration: none; 
+    color: inherit; 
+    cursor: pointer;
 }
 
 * {
@@ -34,15 +36,6 @@ button {
     background-color: unset;
     color: unset;
     cursor: pointer;
-}
-
-#donation {
-    position: relative;
-    width: 100%;
-    padding: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 #wrapper {
@@ -65,57 +58,43 @@ button {
     margin: 10px 30% 30px 30%;   
 }
 
+#adoption {
+    position: relative;
+    width: 100%;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .left {
     position: relative;
     width: 49%;
     display: inline-block;
+    display: flex;
+    justify-content: center;
 }
 
-.left .img {
-    width: 100%;
-    border-radius: 6px
+.left img {
+    height: 350px;
+    /* width: 40%; */
+    border-radius: 6px;
+    object-fit: cover;
 }
 
 .left:hover .overlay {
     opacity: 1;
 }
 
-.overlay {
-    position: absolute;
-    bottom: 0;
-    background: rgb(0, 0, 0);
-    background: rgba(0, 0, 0, 0.5);
-    color: #f1f1f1;
-    width: 100%;
-    transition: .5s ease;
-    opacity:0;
-    color: white;
-    font-size: 12x;
-    padding: 20px;
-    font-family: 'Roboto', sans-serif;
-    border-radius: 0 0 6px 6px;
-}
-
-.overlay h3 {
-    text-align: center;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-}
-
-.overlay li {
-    list-style-type: decimal;
-    margin: 0 0 10px 0;
-}
-
 .right {
     width: 50%;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .right form {
-    width: 70%;
-    background-color: var(--my-color-5);
+    width: 60%;
     padding: 2%;
     border-radius: 6px;
 }
@@ -124,28 +103,36 @@ button {
     font-size: 15px;
 }
 
-.right form span,
 .right form select,
-.right form input,
-.right form button{
+.right form input{
     width: 100%;
-    padding: 14px;
-    margin-top: 6px;
-    margin-bottom: 20px;
+    padding: 18px;
+    margin: 10px 0;
     border-radius: 8px;
     border: 1px solid #ccc;
 }
 
 .right form select {
-    padding: 12px;
+    padding: 16px;
 }
 
 .right form button {
-    background-color: var(--my-color-2);
-    color: var(--my-color-5);
+    width: 49%;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 8px;
     border: none;
+    background-color: #32508E;
+    color: var(--my-color-5);
     text-transform: uppercase;
-    padding: 18px;
+}
+
+.right form button[type="button"] {
+    background-color: #DD4B39;
+}
+
+.right form input::placeholder {
+    font-family: 'Roboto', sans-serif;
 }
 
 .right form button:hover {
@@ -161,10 +148,14 @@ button {
     .right form {
         width: 80%;
     }
+
+    .left  {
+        width: 40%;
+    }
 }
 
 @media (max-width: 768px) {
-    #donation {
+    #adoption {
         position: relative;
         width: 100%;
         padding: 6px;
