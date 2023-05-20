@@ -36,8 +36,13 @@
                     <i class="fa-solid fa-location-dot"></i>
                     <h6>54 Nguyễn Lương Bằng <br> Liên Chiểu - Đà Nẵng</h6>
                 </div>
-                <% Object obj=session.getAttribute("user"); User user=null; if(obj !=null) user=(User)obj;
-                    if(user==null) { %>
+                <%
+                	Object obj = session.getAttribute("user");
+                	User user = null;
+                	if(obj != null)
+                		user = (User)obj;
+                	if(user == null) {
+                %>
                 <div class="login">
                     <a href="./login.jsp">
                         <i class="fa-solid fa-right-to-bracket"></i>

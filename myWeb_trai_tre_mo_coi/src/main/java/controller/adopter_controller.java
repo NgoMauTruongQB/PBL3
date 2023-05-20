@@ -136,13 +136,22 @@ public class adopter_controller extends HttpServlet {
 		rd.forward(request, response);
 	}
 	
-	private void deleteAdopter(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void deleteAdopter(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String id = request.getParameter("id");	
+		String notification = "Thành công";
+		String url = "";
+		int isSuccess = 0;
 		AdopterDAO adopterDao = new AdopterDAO();
 		Adopter ad = new Adopter();
 		ad.setAdopterID(id);
-		adopterDao.delete(ad);
-		response.sendRedirect("adopter_manage.jsp");
+		isSuccess = adopterDao.delete(ad);
+		if(isSuccess == 0) {
+			notification = "Không được phép xoá vì người nhận nuôi này liên quan đến các thông tin khác.";
+		}
+		request.setAttribute("notification", notification);
+		url = "/adopter_manage.jsp";
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 	
 	

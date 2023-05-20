@@ -45,12 +45,62 @@ public class children_controller extends HttpServlet {
 			getInfo(request, response);
 		} else if (mod.equals("updateChild")) {
 			updateChild(request, response);
+		} else if (mod.equals("introduction")) {
+			try {
+				introduction(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		doGet(request, response);
+	}
+	
+	void introduction(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		String name = request.getParameter("iName");
+		String gender = request.getParameter("iGender");
+		String dateTmp = request.getParameter("iDate");
+		String health = request.getParameter("iHealth");
+		String education = request.getParameter("iEducation");
+		String reason = request.getParameter("iReason");
+		
+		String url = "";
+		
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date utilDate = format.parse(dateTmp);
+			java.sql.Date date = new java.sql.Date(utilDate.getTime());
+			Part file = request.getPart("file-input");
+			String image = file.getSubmittedFileName();
+			String uploadPath = "D:/workspace_PBL/PBL3/myWeb_trai_tre_mo_coi/src/main/webapp/uploads/children/" + image;
+			
+			try {
+				FileOutputStream fos = new FileOutputStream(uploadPath);
+				InputStream is = file.getInputStream();
+				byte[] data = new byte[is.available()];
+				is.read(data);
+				fos.write(data);
+				fos.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			ChildrenDAO childrenDAO = new ChildrenDAO();
+			long time = System.currentTimeMillis();
+			String id = "C" + String.valueOf(time).substring(0,8);
+			Children children = new Children(id, name, date, gender, reason, health, education, 1, image);
+			childrenDAO.insert(children);
+			url = "/children_manage.jsp";
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 	
 	void addChild(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -96,14 +146,23 @@ public class children_controller extends HttpServlet {
 		rd.forward(request, response);
 	}
 	
-	private void deleteChild(HttpServletRequest request, HttpServletResponse response) {
+	private void deleteChild(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			String id = request.getParameter("id");
+			String notification = "Thành công";
+			String url = "";
+			int isSuccess = 0;
 			ChildrenDAO childrenDAO = new ChildrenDAO();
 			Children cr = new Children();
 			cr.setOrphanID(id);
-			childrenDAO.delete(cr);
-			response.sendRedirect("children_manage.jsp");
+			isSuccess = childrenDAO.delete(cr);
+			if(isSuccess == 0) {
+				notification = "Không được phép xoá vì thông tin trẻ liên quan đến các thông tin khác.";
+			}
+			request.setAttribute("notification", notification);
+			url = "/children_manage.jsp";
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+			rd.forward(request, response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

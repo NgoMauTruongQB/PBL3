@@ -1,5 +1,5 @@
-<%@page import="model.User"%>
-<%@page import="java.util.ArrayList"%>
+<%@ page import="model.User" %>
+<%@ page import="java.util.ArrayList"%>
 <%@ page import="database.StaffDAO" %>
 <%@ page import="model.Staff" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>

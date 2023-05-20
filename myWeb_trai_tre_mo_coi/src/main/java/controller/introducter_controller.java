@@ -84,13 +84,22 @@ public class introducter_controller extends HttpServlet {
 		rd.forward(request, response);
 	}
 	
-	private void deleteIntroducter(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void deleteIntroducter(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String id = request.getParameter("id");
+		String notification = "Thành công";
+		String url = "";
+		int isSuccess = 0;
 		IntroducterDAO introducterDAO = new IntroducterDAO();
 		Introducter it = new Introducter();
 		it.setIntroducterID(id);
-		introducterDAO.delete(it);
-		response.sendRedirect("introducter_manage.jsp");
+		isSuccess = introducterDAO.delete(it);
+		if(isSuccess == 0) {
+			notification = "Không được phép xoá vì người giới thiệu này liên quan đến các thông tin khác.";
+		}
+		request.setAttribute("notification", notification);
+		url = "/introducter_manage.jsp";
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 	
 	private void updateIntroducter(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

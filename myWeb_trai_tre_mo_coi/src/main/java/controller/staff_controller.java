@@ -103,14 +103,23 @@ public class staff_controller extends HttpServlet {
 		rd.forward(request, response);
 	}
 	
-	private void deleteStaff(HttpServletRequest request, HttpServletResponse response) {
+	private void deleteStaff(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			String id = request.getParameter("id");
+			String notification = "Thành công";
+			String url = "";
+			int isSuccess = 0;
 			StaffDAO staffDao = new StaffDAO();
 			Staff st = new Staff();
 			st.setStaffID(id);
-			staffDao.delete(st);
-			response.sendRedirect("staff_manage.jsp");
+			isSuccess = staffDao.delete(st);
+			if(isSuccess == 0) {
+				notification = "Không được phép xoá vì nhân viên này liên quan đến các thông tin khác.";
+			}
+			request.setAttribute("notification", notification);
+			url = "/staff_manage.jsp";
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+			rd.forward(request, response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

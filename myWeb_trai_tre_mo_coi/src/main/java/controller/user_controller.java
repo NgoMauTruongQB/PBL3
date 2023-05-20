@@ -99,13 +99,22 @@ public class user_controller extends HttpServlet {
 		rd.forward(request, response);
 	}
 	
-	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String id = request.getParameter("id");	
+		String notification = "Thành công";
+		String url = "";
+		int isSuccess = 0;
 		UserDAO userDAO = new UserDAO();
 		User u = new User();
 		u.setId(id);
-		userDAO.delete(u);
-		response.sendRedirect("user_manage.jsp");
+		isSuccess = userDAO.delete(u);
+		if(isSuccess == 0) {
+			notification = "Không được phép xoá vì user này liên quan đến các thông tin khác.";
+		}
+		request.setAttribute("notification", notification);
+		url = "/user_manage.jsp";
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 	
 	private void updateUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

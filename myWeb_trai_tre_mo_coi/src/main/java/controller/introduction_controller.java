@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.ChildrenDAO;
 import database.IntroductionDAO;
+import model.Children;
 import model.Introduction;
 import util.Email;
 
@@ -52,6 +54,10 @@ public class introduction_controller extends HttpServlet {
 		String email = introductionDAO.selectEmail(introducterId);
 		String introducterName = introduction.getIntroducter().getName();
 		String child = introduction.getChild().getName();
+		ChildrenDAO childrenDAO = new ChildrenDAO();
+		Children c = introduction.getChild();
+		c.setState(1);
+		childrenDAO.update(c);
 		Email.SendEmailIntroduction(email, "Xác nhận giới thiệu thành công", introducterName, child);
 		url = "/introduction_manage.jsp";
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);

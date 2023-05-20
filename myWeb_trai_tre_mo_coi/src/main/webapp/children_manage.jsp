@@ -51,7 +51,14 @@
                 </form>
             </div>
         </div>
-
+		<%
+			String notification = request.getAttribute("notification")+"";
+	 		notification = (notification.equals("null")) ? "" : notification;
+			if (!notification.isEmpty()) { %>
+			  <script>
+			    alert("<%= notification %>");
+			  </script>
+		<% } %>
         <!-- Bảng -->
         <div class="table" >
         	<table style="width: 100%; overflow-x: scroll;">

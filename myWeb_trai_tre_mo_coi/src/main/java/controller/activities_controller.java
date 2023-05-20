@@ -166,13 +166,22 @@ public class activities_controller extends HttpServlet {
 		rd.forward(request, response);
 	}
 	
-	private void deleteActivity(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void deleteActivity(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String id = request.getParameter("id");
+		String notification = "Thành công";
+		String url = "";
+		int isSuccess = 0;
 		Charity_activitiesDAO aDao = new Charity_activitiesDAO();
 		Charity_activities activity = new Charity_activities();
 		activity.setActivityID(id);
-		aDao.delete(activity);
-		response.sendRedirect("activities_manage.jsp");
+		isSuccess = aDao.delete(activity);
+		if(isSuccess == 0) {
+			notification = "Không được phép xoá vì hoạt động này liên quan đến các thông tin khác.";
+		}
+		request.setAttribute("notification", notification);
+		url = "/activities_manage.jsp";
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 
 }

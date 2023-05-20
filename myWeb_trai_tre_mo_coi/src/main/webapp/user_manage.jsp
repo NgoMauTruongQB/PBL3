@@ -41,7 +41,7 @@
                 </button>
             </form>
         </div>
-
+		
         <!-- Thêm  -->
         <div class="insert">
             <button onclick="document.getElementById('insert-modal').style.display='block'">
@@ -49,7 +49,14 @@
                 Thêm mới
             </button>
         </div>
-
+		<%
+			String notification = request.getAttribute("notification")+"";
+	 		notification = (notification.equals("null")) ? "" : notification;
+			if (!notification.isEmpty()) { %>
+			  <script>
+			    alert("<%= notification %>");
+			  </script>
+		<% } %>
         <!-- Bảng -->
         <div class="table" >
         	<table >
