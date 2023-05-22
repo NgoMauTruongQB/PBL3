@@ -100,7 +100,7 @@
                         <td class="editable"><% if (cr.getEducation() == null) {%> <%= "" %> <% }else {%> <%= cr.getEducation() %><%} %></td>
 	                    <td class="editable"><%if (cr.getState() == 1){ %>
 	                    <%= "Đang sinh sống" %><%} else {%>
-	                    <%= "Đã chuyển đi" %> <%} %><td>
+	                    <%= "Không ở trung tâm" %> <%} %><td>
                         <td>
 	                    	<button class="edit" onclick="editChild('<%= cr.getOrphanID() %>')">Sửa</button>
 						    <button class="delete" onclick="confirmDelete('<%= cr.getOrphanID() %>')">Xoá</button>

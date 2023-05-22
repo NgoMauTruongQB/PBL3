@@ -4,8 +4,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,9 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import database.ChildrenDAO;
+import database.Introducter_user_DAO;
 import database.IntroductionDAO;
+import database.UserDAO;
 import model.Children;
+import model.Introducter_user;
 import model.Introduction;
+import model.User;
 
 @MultipartConfig
 @WebServlet("/children_controller")
@@ -45,14 +52,15 @@ public class children_controller extends HttpServlet {
 			getInfo(request, response);
 		} else if (mod.equals("updateChild")) {
 			updateChild(request, response);
-		} else if (mod.equals("introduction")) {
+		}
+		else if (mod.equals("introduction")) {
 			try {
 				introduction(request, response);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -60,7 +68,7 @@ public class children_controller extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	void introduction(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	void addChild(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("iName");
 		String gender = request.getParameter("iGender");
@@ -103,7 +111,8 @@ public class children_controller extends HttpServlet {
 		rd.forward(request, response);
 	}
 	
-	void addChild(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
+	void introduction(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("iName");
 		String gender = request.getParameter("iGender");
@@ -114,13 +123,28 @@ public class children_controller extends HttpServlet {
 		
 		String url = "";
 		
+		UserDAO usDAO= new UserDAO();
+		Object obj = request.getSession().getAttribute("user");
+		User user=null;
+		user= (User)obj;
+		
+		boolean check;
 		try {
+			if(user!=null) {
+				Introducter_user_DAO in_us_DAO = new Introducter_user_DAO();
+				Introducter_user in_us = new Introducter_user();
+				in_us= in_us_DAO.selectByIdUser(user);
+				if(in_us== null) {
+					request.setAttribute("error", "Bạn chưa đăng kí trở thành người giới thiệu!");
+					url="/introduction.jsp";
+				}
+				else {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date utilDate = format.parse(dateTmp);
 			java.sql.Date date = new java.sql.Date(utilDate.getTime());
 			Part file = request.getPart("file-input");
 			String image = file.getSubmittedFileName();
-			String uploadPath = "D:/Study/DoAn/PBL3/myWeb_trai_tre_mo_coi/src/main/webapp/uploads/children/" + image;
+			String uploadPath = "D:/workspace_PBL/PBL3/myWeb_trai_tre_mo_coi/src/main/webapp/uploads/children/" + image;
 			
 			try {
 				FileOutputStream fos = new FileOutputStream(uploadPath);
@@ -136,9 +160,36 @@ public class children_controller extends HttpServlet {
 			ChildrenDAO childrenDAO = new ChildrenDAO();
 			long time = System.currentTimeMillis();
 			String id = "C" + String.valueOf(time).substring(0,8);
-			Children children = new Children(id, name, date, gender, reason, health, education, 1, image);
+			Children children = new Children(id, name, date, gender, reason, health, education, 0, image);
 			childrenDAO.insert(children);
-			url = "/children_manage.jsp";
+			
+				ChildrenDAO chDAO= new ChildrenDAO();
+				Children ch= new Children();
+				ch = chDAO.selectById(name);
+				
+				
+				 	LocalDate localDate = LocalDate.now();
+			        Date currentDate = Date.valueOf(localDate);
+			        Random rand = new Random();
+			         int ranNum = rand.nextInt(1000)+1;
+			        String s=Integer.toString(ranNum);
+					String id1 ="IN"+s;
+					IntroductionDAO inDAO= new IntroductionDAO();
+					Introduction in = new Introduction(id1,ch,in_us.getIntroducter(),0,currentDate,reason);
+					inDAO.insert(in);
+					if(in!=null) check = true; else check= false;
+					if (check) {
+					    request.setAttribute("SuccessIntroduction", true);
+					} else {
+					    request.setAttribute("SuccessIntroduction", false);
+					}
+					url="/introduction.jsp";	
+				}
+			}else {
+				request.setAttribute("error", "Bạn chưa đăng nhập!");
+				url="/introduction.jsp";
+			}
+			
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -146,23 +197,14 @@ public class children_controller extends HttpServlet {
 		rd.forward(request, response);
 	}
 	
-	private void deleteChild(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	private void deleteChild(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			String id = request.getParameter("id");
-			String notification = "Thành công";
-			String url = "";
-			int isSuccess = 0;
 			ChildrenDAO childrenDAO = new ChildrenDAO();
 			Children cr = new Children();
 			cr.setOrphanID(id);
-			isSuccess = childrenDAO.delete(cr);
-			if(isSuccess == 0) {
-				notification = "Không được phép xoá vì thông tin trẻ liên quan đến các thông tin khác.";
-			}
-			request.setAttribute("notification", notification);
-			url = "/children_manage.jsp";
-			RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
-			rd.forward(request, response);
+			childrenDAO.delete(cr);
+			response.sendRedirect("children_manage.jsp");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -215,7 +257,7 @@ public class children_controller extends HttpServlet {
 				java.sql.Date date = new java.sql.Date(utilDate.getTime());
 				Part file = request.getPart("uPhoto");
 				String image = file.getSubmittedFileName();
-				String uploadPath = "D:/Study/DoAn/PBL3/myWeb_trai_tre_mo_coi/src/main/webapp/uploads/children/" + image;
+				String uploadPath = "D:/workspace_PBL/PBL3/myWeb_trai_tre_mo_coi/src/main/webapp/uploads/children/" + image;
 				try {
 					FileOutputStream fos = new FileOutputStream(uploadPath);
 					InputStream is = file.getInputStream();

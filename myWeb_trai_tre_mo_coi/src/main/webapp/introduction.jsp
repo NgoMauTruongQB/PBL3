@@ -47,7 +47,7 @@ SuccessIntroduction = <%= request.getAttribute("SuccessIntroduction") %>;
         <!-- Infomation -->
         <div class="info" >
             <form action="children_controller" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="mod" value="addChild">
+            <input type="hidden" name="mod" value="introduction">
                 <div class="header-info">
                     <h2>Thông tin trẻ</h2>
                 </div>
